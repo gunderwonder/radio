@@ -1,5 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict/>
+<dict>
+	<key>NRK P1</key>
+	<dict>
+		<key>name</key>
+		<string>NRK P1</string>
+		<key>streamURL</key>
+		<string>http://lyd.nrk.no/nrk_radio_p1_ostlandssendingen_mp3_h</string>
+		<key>metadataURL</key>
+		<string>http://www.nrk.no/api/metadata/onairnow/json/p1</string>
+	</dict>
+	<key>NRK P2</key>
+	<dict>
+		<key>name</key>
+		<string>NRK P2</string>
+		<key>streamURL</key>
+		<string>http://lyd.nrk.no/nrk_radio_p2_mp3_h</string>
+		<key>metadataURL</key>
+		<string>http://www.nrk.no/api/metadata/onairnow/json/p2</string>
+	</dict>
+	<key>NRK P3</key>
+	<dict>
+		<key>name</key>
+		<string>NRK P2</string>
+		<key>streamURL</key>
+		<string>http://lyd.nrk.no/nrk_radio_p3_mp3_h</string>
+		<key>metadataURL</key>
+		<string>http://www.nrk.no/api/metadata/onairnow/json/p3</string>
+	</dict>
+	<key>NRK Alltid Nyheter</key>
+	<dict>
+		<key>name</key>
+		<string>NRK P3</string>
+		<key>streamURL</key>
+		<string>http://lyd.nrk.no/nrk_radio_alltid_nyheter_mp3_h</string>
+		<key>metadataURL</key>
+		<string>http://www.nrk.no/api/metadata/onairnow/json/alltidnyheter</string>
+	</dict>
+</dict>
 </plist>

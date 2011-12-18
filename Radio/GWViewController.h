@@ -7,7 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GWRadioTuner.h"
 
-@interface GWViewController : UIViewController
+@interface GWViewController : UIViewController {
+    GWRadioTuner *_tuner;
+}
+
+@property (weak, nonatomic) IBOutletCollection(UIButton) NSArray *radioStationButtons;
+@property (weak, nonatomic) IBOutlet UILabel *currentShowLabel;
+@property (weak, nonatomic) IBOutlet UILabel *currentArtistLabel;
+@property (weak, nonatomic) IBOutlet UILabel *currentTrackLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *coverArtImageView;
+@property (weak, nonatomic) IBOutlet UILabel *nextShowLabel;
+@property (weak, nonatomic) IBOutlet UIButton *spotifySearchButton;
+
+
+- (IBAction)didSwitchStation:(id)sender;
+- (IBAction)didSpotifySearch:(id)sender;
 
 @end

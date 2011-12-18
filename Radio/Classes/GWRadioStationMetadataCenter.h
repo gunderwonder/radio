@@ -7,7 +7,22 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "GWRadioStation.h"
 
-@interface GWRadioStationMetadataCenter : NSObject
+#define GWRadioStationMetadataDidChangeNotification @"GWRadioStationMetadataDidChangeNotification"
+
+@interface GWRadioStationMetadataCenter : NSObject {
+    NSURL *_metadataURL;
+    NSTimer *_pollTimer;
+}
+
+@property (nonatomic, copy) NSURL *metadataURL;
+
++ (GWRadioStationMetadataCenter *)sharedCenter;
+
+- (void)startGatheringMetadataForStation:(GWRadioStation *)station;
+- (void)stopGatheringMetadata:(GWRadioStation *)station;
+
+
 
 @end

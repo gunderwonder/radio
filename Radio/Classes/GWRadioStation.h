@@ -8,6 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-@interface GWRadioStation : NSObject
+@interface GWRadioStation : NSObject {
+    NSString *_name;
+    NSURL *_streamURL;
+    NSURL *_metadataURL;
+}
+
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSURL *streamURL;
+@property (nonatomic, copy) NSURL *metadataURL;
 
 @end

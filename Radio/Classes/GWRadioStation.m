@@ -10,4 +10,8 @@
 
 @implementation GWRadioStation
 
+@synthesize name = _name;
+@synthesize streamURL = _streamURL;
+@synthesize metadataURL = _metadataURL;
+
 @end

@@ -10,4 +10,7 @@
 
 @interface GWSpotifySearcher : NSObject
 
++ (void)searchForTrack:(NSString *)trackName byArtist:(NSString *)artistName;
++ (BOOL)canOpenSpotify;
+
 @end
