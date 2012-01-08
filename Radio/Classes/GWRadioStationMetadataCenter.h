@@ -14,6 +14,8 @@
 @interface GWRadioStationMetadataCenter : NSObject {
     NSURL *_metadataURL;
     NSTimer *_pollTimer;
+    GWRadioStation *_currentStation;
+    NSDictionary *_currentMetadata;
 }
 
 @property (nonatomic, copy) NSURL *metadataURL;

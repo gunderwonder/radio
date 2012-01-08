@@ -9,15 +9,36 @@
 #import "GWTrackView.h"
 
 @implementation GWTrackView
+@synthesize coverArtView;
+@synthesize trackLabel;
+@synthesize artistLabel;
+@synthesize label;
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (void)loadSubview {
+    NSArray *b = [[NSBundle mainBundle] loadNibNamed:@"GWTrackView" owner:self options:nil];
+    for (id v in b) {
+        if ([v isKindOfClass:[UIView class]])
+            [self addSubview:v];
+    }
+}
+
+
+- (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
+        [self loadSubview];
     }
     return self;
 }
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self loadSubview];
+    }
+    return self;
+}
+
 
 /*
 // Only override drawRect: if you perform custom drawing.

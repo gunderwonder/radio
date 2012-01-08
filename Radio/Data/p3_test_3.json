@@ -1,0 +1,45 @@
+{"program": {
+    "title": "P3lørdag",
+    "dataid": "DPME06004811",
+    "escort": "10",
+    "date": "2011-12-17T16:03:00",
+    "elements": [
+                 {
+                 "runorder": "past",
+                 "dataid": "P3TY_082811CD0006",
+                 "objecttype": "item",
+                 "elementtype": "Music",
+                 "reference": "Digas",
+                 "date": "2011-12-17T19:32:23",
+                 "title": "I Can Talk",
+                 "contributor": "Two Door Cinema Club",
+                 "contributerrole": "Utøver",
+                 "imgurl": "http://nettradio.nrk.no/albumill/082811CD0006.jpg",
+                 "type": "Music"
+                 },
+                 {
+                 "runorder": "present",
+                 "dataid": "NDRO_000496CD0011",
+                 "objecttype": "item",
+                 "elementtype": "Music",
+                 "reference": "Digas",
+                 "date": "2011-12-17T19:35:09",
+                 "title": "Bris",
+                 "contributor": "Kaizers Orchestra",
+                 "contributerrole": "Utøver",
+                 "imgurl": "http://nettradio.nrk.no/albumill/000496CD0011.jpg",
+                 "type": "Music"
+                 },
+                 {
+                 "runorder": "nextprogram",
+                 "program": {
+                 "title": "Christine",
+                 "dataid": "MYNM09005111",
+                 "escort": "10",
+                 "date": "2011-12-17T20:00:00",
+                 "elements": [
+                 ]
+                 }
+                 }
+                 ]
+}}

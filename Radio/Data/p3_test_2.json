@@ -1,0 +1,45 @@
+{"program": {
+    "title": "P3lørdag",
+    "dataid": "DPME06004811",
+    "escort": "10",
+    "date": "2011-12-17T16:03:00",
+    "elements": [
+                 {
+                 "runorder": "present",
+                 "dataid": "NDRO_000496CD0011",
+                 "objecttype": "item",
+                 "elementtype": "Music",
+                 "reference": "Digas",
+                 "date": "2011-12-17T19:35:09",
+                 "title": "Bris",
+                 "contributor": "Kaizers Orchestra",
+                 "contributerrole": "Utøver",
+                 "imgurl": "http://nettradio.nrk.no/albumill/000496CD0011.jpg",
+                 "type": "Music"
+                 },
+                 {
+                 "runorder": "future",
+                 "dataid": "P3TY_078876CS0001",
+                 "objecttype": "item",
+                 "elementtype": "Music",
+                 "reference": "Digas",
+                 "date": "2011-12-17T19:38:40",
+                 "title": "Backfire at the Disco",
+                 "contributor": "The Wombats",
+                 "contributerrole": "Utøver",
+                 "imgurl": "http://nettradio.nrk.no/albumill/078876CS0001.jpg",
+                 "type": "Music"
+                 },
+                 {
+                 "runorder": "nextprogram",
+                 "program": {
+                 "title": "Christine",
+                 "dataid": "MYNM09005111",
+                 "escort": "10",
+                 "date": "2011-12-17T20:00:00",
+                 "elements": [
+                 ]
+                 }
+                 }
+                 ]
+}}

@@ -10,4 +10,9 @@
 
 @interface GWTrackView : UIView
 
+@property (weak, nonatomic) IBOutlet UIImageView *coverArtView;
+@property (weak, nonatomic) IBOutlet UILabel *trackLabel;
+@property (weak, nonatomic) IBOutlet UILabel *artistLabel;
+@property (weak, nonatomic) IBOutlet UILabel *label;
+
 @end
