@@ -14,6 +14,18 @@
 		8A0C14C114A9F86C00F8D2B3 /* p3_test_3.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A0C14C014A9F86B00F8D2B3 /* p3_test_3.json */; };
 		8A0C14C314A9F88F00F8D2B3 /* p3_test_4.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A0C14C214A9F88F00F8D2B3 /* p3_test_4.json */; };
 		8A0C14C614AA06F000F8D2B3 /* GWStationTunerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0C14C514AA06F000F8D2B3 /* GWStationTunerView.m */; };
+		8A0C4FAE14BA3EE200D2E864 /* GWFlipSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0C4FAC14BA3EDF00D2E864 /* GWFlipSideViewController.m */; };
+		8A0C4FAF14BA3EE200D2E864 /* GWFlipSideViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A0C4FAD14BA3EDF00D2E864 /* GWFlipSideViewController.xib */; };
+		8A0C4FB114BA3F6500D2E864 /* background_flipside@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A0C4FB014BA3F6500D2E864 /* background_flipside@2x.png */; };
+		8A2BD82114B9F86F00A54316 /* OrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A2BD82014B9F86F00A54316 /* OrderedDictionary.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -Wno-missing-declarations"; }; };
+		8A2BD82414B9F8CA00A54316 /* GWOrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A2BD82314B9F8CA00A54316 /* GWOrderedDictionary.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		8A40513414BA064A00C7BB42 /* background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A40512E14BA064A00C7BB42 /* background@2x.png */; };
+		8A40513514BA064A00C7BB42 /* button_airplay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A40512F14BA064A00C7BB42 /* button_airplay@2x.png */; };
+		8A40513614BA064A00C7BB42 /* button_info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A40513014BA064A00C7BB42 /* button_info@2x.png */; };
+		8A40513714BA064A00C7BB42 /* button_pause@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A40513114BA064A00C7BB42 /* button_pause@2x.png */; };
+		8A40513814BA064A00C7BB42 /* button_play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A40513214BA064A00C7BB42 /* button_play@2x.png */; };
+		8A40513914BA064A00C7BB42 /* button_spotify@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A40513314BA064A00C7BB42 /* button_spotify@2x.png */; };
+		8A40513F14BA156500C7BB42 /* GWGlowingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A40513E14BA156500C7BB42 /* GWGlowingLabel.m */; };
 		8AC5D9A8149D09B800A63579 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AC5D9A7149D09B800A63579 /* UIKit.framework */; };
 		8AC5D9AA149D09B800A63579 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AC5D9A9149D09B800A63579 /* Foundation.framework */; };
 		8AC5D9AC149D09B800A63579 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AC5D9AB149D09B800A63579 /* CoreGraphics.framework */; };
@@ -33,7 +45,7 @@
 		8AC5D9EE149D169900A63579 /* GWRadioStation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC5D9ED149D169900A63579 /* GWRadioStation.m */; };
 		8AC5D9F4149D214B00A63579 /* GWRadioTuner.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC5D9F3149D214B00A63579 /* GWRadioTuner.m */; };
 		8AC5D9F6149D2EFA00A63579 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AC5D9F5149D2EFA00A63579 /* AVFoundation.framework */; };
-		8AC5D9F9149D317900A63579 /* AudioStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC5D9F8149D317900A63579 /* AudioStreamer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -Wno-extra-tokens -Wno-missing-prototype -Wno-format"; }; };
+		8AC5D9F9149D317900A63579 /* AudioStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC5D9F8149D317900A63579 /* AudioStreamer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -Wno-extra-tokens -Wno-missing-prototype -Wno-format -Wno-cpp"; }; };
 		8AFB71A1149D44220010E6E1 /* GWRadioStationMetadataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AFB71A0149D44220010E6E1 /* GWRadioStationMetadataCenter.m */; };
 		8AFB71B9149D48C40010E6E1 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AFB71A4149D48C40010E6E1 /* AFHTTPClient.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8AFB71BA149D48C40010E6E1 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AFB71A6149D48C40010E6E1 /* AFHTTPRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -71,6 +83,23 @@
 		8A0C14C214A9F88F00F8D2B3 /* p3_test_4.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = p3_test_4.json; sourceTree = "<group>"; };
 		8A0C14C414AA06F000F8D2B3 /* GWStationTunerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWStationTunerView.h; sourceTree = "<group>"; };
 		8A0C14C514AA06F000F8D2B3 /* GWStationTunerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GWStationTunerView.m; sourceTree = "<group>"; };
+		8A0C4FAB14BA3EDE00D2E864 /* GWFlipSideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWFlipSideViewController.h; sourceTree = "<group>"; };
+		8A0C4FAC14BA3EDF00D2E864 /* GWFlipSideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GWFlipSideViewController.m; sourceTree = "<group>"; };
+		8A0C4FAD14BA3EDF00D2E864 /* GWFlipSideViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GWFlipSideViewController.xib; sourceTree = "<group>"; };
+		8A0C4FB014BA3F6500D2E864 /* background_flipside@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_flipside@2x.png"; sourceTree = "<group>"; };
+		8A2BD81F14B9F86F00A54316 /* OrderedDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderedDictionary.h; sourceTree = "<group>"; };
+		8A2BD82014B9F86F00A54316 /* OrderedDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderedDictionary.m; sourceTree = "<group>"; };
+		8A2BD82214B9F8CA00A54316 /* GWOrderedDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GWOrderedDictionary.h; path = GWUtilities/GWOrderedDictionary.h; sourceTree = "<group>"; };
+		8A2BD82314B9F8CA00A54316 /* GWOrderedDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GWOrderedDictionary.m; path = GWUtilities/GWOrderedDictionary.m; sourceTree = "<group>"; };
+		8A2BD82514B9FB6E00A54316 /* GWUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GWUtilities.h; path = GWUtilities/GWUtilities.h; sourceTree = "<group>"; };
+		8A40512E14BA064A00C7BB42 /* background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background@2x.png"; sourceTree = "<group>"; };
+		8A40512F14BA064A00C7BB42 /* button_airplay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_airplay@2x.png"; sourceTree = "<group>"; };
+		8A40513014BA064A00C7BB42 /* button_info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_info@2x.png"; sourceTree = "<group>"; };
+		8A40513114BA064A00C7BB42 /* button_pause@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_pause@2x.png"; sourceTree = "<group>"; };
+		8A40513214BA064A00C7BB42 /* button_play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_play@2x.png"; sourceTree = "<group>"; };
+		8A40513314BA064A00C7BB42 /* button_spotify@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_spotify@2x.png"; sourceTree = "<group>"; };
+		8A40513D14BA156500C7BB42 /* GWGlowingLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWGlowingLabel.h; sourceTree = "<group>"; };
+		8A40513E14BA156500C7BB42 /* GWGlowingLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GWGlowingLabel.m; sourceTree = "<group>"; };
 		8AC5D9A3149D09B800A63579 /* Radio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Radio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC5D9A7149D09B800A63579 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8AC5D9A9149D09B800A63579 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -81,8 +110,8 @@
 		8AC5D9B5149D09B800A63579 /* Radio-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Radio-Prefix.pch"; sourceTree = "<group>"; };
 		8AC5D9B6149D09B800A63579 /* GWAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GWAppDelegate.h; sourceTree = "<group>"; };
 		8AC5D9B7149D09B800A63579 /* GWAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GWAppDelegate.m; sourceTree = "<group>"; };
-		8AC5D9B9149D09B800A63579 /* GWViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GWViewController.h; sourceTree = "<group>"; };
-		8AC5D9BA149D09B800A63579 /* GWViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GWViewController.m; sourceTree = "<group>"; };
+		8AC5D9B9149D09B800A63579 /* GWViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GWViewController.h; path = ../GWViewController.h; sourceTree = "<group>"; };
+		8AC5D9BA149D09B800A63579 /* GWViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = GWViewController.m; path = ../GWViewController.m; sourceTree = "<group>"; };
 		8AC5D9BD149D09B800A63579 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/GWViewController.xib; sourceTree = "<group>"; };
 		8AC5D9C4149D09B800A63579 /* RadioTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RadioTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC5D9C5149D09B800A63579 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -161,6 +190,96 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8A0C4FA914BA2DD100D2E864 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				8AC5D9B9149D09B800A63579 /* GWViewController.h */,
+				8AC5D9BA149D09B800A63579 /* GWViewController.m */,
+				8A0C4FAB14BA3EDE00D2E864 /* GWFlipSideViewController.h */,
+				8A0C4FAC14BA3EDF00D2E864 /* GWFlipSideViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		8A0C4FAA14BA352100D2E864 /* Generic */ = {
+			isa = PBXGroup;
+			children = (
+				8A40513D14BA156500C7BB42 /* GWGlowingLabel.h */,
+				8A40513E14BA156500C7BB42 /* GWGlowingLabel.m */,
+			);
+			name = Generic;
+			sourceTree = "<group>";
+		};
+		8A2BD81C14B9F78500A54316 /* GWUtilities */ = {
+			isa = PBXGroup;
+			children = (
+				8A2BD82214B9F8CA00A54316 /* GWOrderedDictionary.h */,
+				8A2BD82314B9F8CA00A54316 /* GWOrderedDictionary.m */,
+				8A2BD82514B9FB6E00A54316 /* GWUtilities.h */,
+			);
+			name = GWUtilities;
+			sourceTree = "<group>";
+		};
+		8A2BD81E14B9F86F00A54316 /* OrderedDictionary */ = {
+			isa = PBXGroup;
+			children = (
+				8A2BD81F14B9F86F00A54316 /* OrderedDictionary.h */,
+				8A2BD82014B9F86F00A54316 /* OrderedDictionary.m */,
+			);
+			path = OrderedDictionary;
+			sourceTree = "<group>";
+		};
+		8A40512C14BA062E00C7BB42 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				8A0C4FB014BA3F6500D2E864 /* background_flipside@2x.png */,
+				8A40512E14BA064A00C7BB42 /* background@2x.png */,
+				8A40512F14BA064A00C7BB42 /* button_airplay@2x.png */,
+				8A40513014BA064A00C7BB42 /* button_info@2x.png */,
+				8A40513114BA064A00C7BB42 /* button_pause@2x.png */,
+				8A40513214BA064A00C7BB42 /* button_play@2x.png */,
+				8A40513314BA064A00C7BB42 /* button_spotify@2x.png */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		8A40513A14BA0B3100C7BB42 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8AC5D9EC149D169900A63579 /* GWRadioStation.h */,
+				8AC5D9ED149D169900A63579 /* GWRadioStation.m */,
+				8AC5D9F2149D214B00A63579 /* GWRadioTuner.h */,
+				8AC5D9F3149D214B00A63579 /* GWRadioTuner.m */,
+				8AFB719F149D44220010E6E1 /* GWRadioStationMetadataCenter.h */,
+				8AFB71A0149D44220010E6E1 /* GWRadioStationMetadataCenter.m */,
+				8AFB71CC149E0FBD0010E6E1 /* GWSpotifySearcher.h */,
+				8AFB71CD149E0FBD0010E6E1 /* GWSpotifySearcher.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		8A40513B14BA10E000C7BB42 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8AFB721A149FD9B70010E6E1 /* GWTrackView.h */,
+				8AFB721B149FD9B80010E6E1 /* GWTrackView.m */,
+				8A0C14C414AA06F000F8D2B3 /* GWStationTunerView.h */,
+				8A0C14C514AA06F000F8D2B3 /* GWStationTunerView.m */,
+				8A0C4FAA14BA352100D2E864 /* Generic */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		8A40513C14BA110800C7BB42 /* Interfaces */ = {
+			isa = PBXGroup;
+			children = (
+				8AFB721D149FD9CF0010E6E1 /* GWTrackView.xib */,
+				8AC5D9BC149D09B800A63579 /* GWViewController.xib */,
+				8A0C4FAD14BA3EDF00D2E864 /* GWFlipSideViewController.xib */,
+			);
+			name = Interfaces;
+			sourceTree = "<group>";
+		};
 		8AC5D998149D09B800A63579 = {
 			isa = PBXGroup;
 			children = (
@@ -198,13 +317,11 @@
 		8AC5D9AD149D09B800A63579 /* Radio */ = {
 			isa = PBXGroup;
 			children = (
+				8A40512C14BA062E00C7BB42 /* Assets */,
 				8AC5D9EF149D17B800A63579 /* Data */,
 				8AC5D9EB149D167900A63579 /* Classes */,
 				8AC5D9B6149D09B800A63579 /* GWAppDelegate.h */,
 				8AC5D9B7149D09B800A63579 /* GWAppDelegate.m */,
-				8AC5D9B9149D09B800A63579 /* GWViewController.h */,
-				8AC5D9BA149D09B800A63579 /* GWViewController.m */,
-				8AC5D9BC149D09B800A63579 /* GWViewController.xib */,
 				8AC5D9DC149D13A400A63579 /* Vendor */,
 				8AC5D9AE149D09B800A63579 /* Supporting Files */,
 				8A0C14B714A9E62800F8D2B3 /* GWRadioApp.h */,
@@ -245,6 +362,8 @@
 		8AC5D9DC149D13A400A63579 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				8A2BD81E14B9F86F00A54316 /* OrderedDictionary */,
+				8A2BD81C14B9F78500A54316 /* GWUtilities */,
 				8AFB71C3149D48CA0010E6E1 /* AFNetworking */,
 				8AFB71A2149D48910010E6E1 /* AudioStreamer */,
 			);
@@ -254,19 +373,10 @@
 		8AC5D9EB149D167900A63579 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				8AC5D9EC149D169900A63579 /* GWRadioStation.h */,
-				8AC5D9ED149D169900A63579 /* GWRadioStation.m */,
-				8AC5D9F2149D214B00A63579 /* GWRadioTuner.h */,
-				8AC5D9F3149D214B00A63579 /* GWRadioTuner.m */,
-				8AFB719F149D44220010E6E1 /* GWRadioStationMetadataCenter.h */,
-				8AFB71A0149D44220010E6E1 /* GWRadioStationMetadataCenter.m */,
-				8AFB71CC149E0FBD0010E6E1 /* GWSpotifySearcher.h */,
-				8AFB71CD149E0FBD0010E6E1 /* GWSpotifySearcher.m */,
-				8AFB721A149FD9B70010E6E1 /* GWTrackView.h */,
-				8AFB721B149FD9B80010E6E1 /* GWTrackView.m */,
-				8AFB721D149FD9CF0010E6E1 /* GWTrackView.xib */,
-				8A0C14C414AA06F000F8D2B3 /* GWStationTunerView.h */,
-				8A0C14C514AA06F000F8D2B3 /* GWStationTunerView.m */,
+				8A0C4FA914BA2DD100D2E864 /* Controllers */,
+				8A40513C14BA110800C7BB42 /* Interfaces */,
+				8A40513B14BA10E000C7BB42 /* Views */,
+				8A40513A14BA0B3100C7BB42 /* Models */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -403,6 +513,14 @@
 				8A0C14BF14A9F84000F8D2B3 /* p3_test_2.json in Resources */,
 				8A0C14C114A9F86C00F8D2B3 /* p3_test_3.json in Resources */,
 				8A0C14C314A9F88F00F8D2B3 /* p3_test_4.json in Resources */,
+				8A40513414BA064A00C7BB42 /* background@2x.png in Resources */,
+				8A40513514BA064A00C7BB42 /* button_airplay@2x.png in Resources */,
+				8A40513614BA064A00C7BB42 /* button_info@2x.png in Resources */,
+				8A40513714BA064A00C7BB42 /* button_pause@2x.png in Resources */,
+				8A40513814BA064A00C7BB42 /* button_play@2x.png in Resources */,
+				8A40513914BA064A00C7BB42 /* button_spotify@2x.png in Resources */,
+				8A0C4FAF14BA3EE200D2E864 /* GWFlipSideViewController.xib in Resources */,
+				8A0C4FB114BA3F6500D2E864 /* background_flipside@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -458,6 +576,10 @@
 				8AFB71D1149E47DB0010E6E1 /* LevelMeterView.m in Sources */,
 				8AFB721C149FD9B80010E6E1 /* GWTrackView.m in Sources */,
 				8A0C14C614AA06F000F8D2B3 /* GWStationTunerView.m in Sources */,
+				8A2BD82114B9F86F00A54316 /* OrderedDictionary.m in Sources */,
+				8A2BD82414B9F8CA00A54316 /* GWOrderedDictionary.m in Sources */,
+				8A40513F14BA156500C7BB42 /* GWGlowingLabel.m in Sources */,
+				8A0C4FAE14BA3EE200D2E864 /* GWFlipSideViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -494,6 +616,7 @@
 				8AC5D9BD149D09B800A63579 /* en */,
 			);
 			name = GWViewController.xib;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		8AC5D9CE149D09B800A63579 /* InfoPlist.strings */ = {

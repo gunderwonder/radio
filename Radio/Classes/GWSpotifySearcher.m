@@ -16,8 +16,18 @@
     NSString *searchString = [NSString stringWithFormat:@"artist:%@+title:%@", 
                               [artistName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], 
                               [trackName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], nil];
-    NSString *localURLString = [NSString stringWithFormat:@"spotify:search:@%", searchString, nil];
+    NSString *localURLString = [NSString stringWithFormat:@"spotify:search:%@", searchString, nil];
     NSString *HTTPURLString = [NSString stringWithFormat:@"http://open.spotify.com/search/%@", searchString, nil];
+    
+    
+    NSLog(@"%@", localURLString);
+#ifdef DEBUG
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Spotify" 
+                                                        message:localURLString 
+                                                       delegate:self 
+                                              cancelButtonTitle:@"Avbryt" 
+                                              otherButtonTitles:nil];
+#else
     
     if ([GWSpotifySearcher canOpenSpotify])
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:localURLString]];
@@ -34,8 +44,8 @@
                                                        delegate:self 
                                               cancelButtonTitle:@"Avbryt" 
                                               otherButtonTitles:nil];
+#endif
     [alertView show];
-    NSLog(@"%@", HTTPURLString);
 
     
 }

@@ -17,19 +17,23 @@
     GWRadioStation *_currentStation;
 }
 
+#pragma mark - Accessors
 @property (nonatomic, retain) NSDictionary *radioStations;
 @property (nonatomic, retain) GWRadioStation *currentStation;
 
+#pragma mark - Initializers
 - (id)initWithStations:(NSDictionary *)stations;
+
+#pragma mark - Station selection
+- (void)tuneInStationWithName:(NSString *)name;
+- (void)tuneInStationWithIndex:(NSUInteger)index;
 - (GWRadioStation *)currentStation;
 
-- (void)tuneInStationWithName:(NSString *)name;
+#pragma mark - Playback
 - (void)pause;
 - (void)stop;
 - (void)start;
-
 - (BOOL)isPlaying;
-
 
 
 @end

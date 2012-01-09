@@ -29,7 +29,7 @@
 		<key>metadataURL</key>
 		<string>http://www.nrk.no/api/metadata/onairnow/json/p3</string>
 	</dict>
-	<key>NRK Alltid Nyheter</key>
+	<key>Alltid Nyheter</key>
 	<dict>
 		<key>name</key>
 		<string>NRK P3</string>
