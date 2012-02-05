@@ -8,10 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GWGlowingLabel : UILabel {
-    BOOL _isGlowing;
-}
-
-@property(setter = setShouldGlow:, assign) BOOL isGlowing;
+@interface GWGlowingLabel : UILabel
 
 @end

@@ -9,8 +9,6 @@
 #ifndef Radio_GWRadioApp_h
 #define Radio_GWRadioApp_h
 
-#define GWTrackViewWidth 240.0
 
-#define GWRadioTunerDidTuneInNotification @"GWRadioTunerDidTuneInNotification"
 
 #endif

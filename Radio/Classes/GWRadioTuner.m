@@ -12,8 +12,6 @@
 
 @interface GWRadioTuner()
 @property (nonatomic, retain) AudioStreamer *streamer;
-
-- (void)tuneInStation:(GWRadioStation *)station;
 @end
 
 @implementation GWRadioTuner
@@ -33,54 +31,15 @@
 }
 
 - (void)tuneInStationWithName:(NSString *)name {
-    [self tuneInStation:[[self radioStations] objectForKey:name]];
-}
-
-- (void)tuneInStationWithIndex:(NSUInteger)index {
-    
-    NSUInteger i = 0;
-    NSString *theStation = nil;
-    for (NSString *stationName in [self radioStations]) {
-        if (index == i)
-            theStation = stationName;
-        
-        i++;
-    }
-    if (theStation == nil)
-        NSLog(@"Couldn't find station with index %d", index);
-    
-    [self tuneInStationWithName:theStation];
-}
-
-- (void)tuneInStation:(GWRadioStation *)station {
-    if (station == [self currentStation])
+    if ([name isEqualToString:[[self currentStation] name]])
         return;
     
-    NSLog(@"Tuning to station %@...", [station name]);
+    NSLog(@"Playing station %@...", name);
     
     [self stop];
-    [self setCurrentStation:station];
+    [self setCurrentStation:[[self radioStations] objectForKey:name]];
     [self setStreamer:[[AudioStreamer alloc] initWithURL:[[self currentStation] streamURL]]];
     [[self streamer] start];
-    
-    NSUInteger index = 0;
-    for (NSString *name in [self radioStations]) {
-        if ([name isEqualToString:[[self currentStation] name]])
-            break;
-        index++;
-    }
-    
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                                station, @"radioStation", 
-                                [NSNumber numberWithUnsignedInteger:index], @"index",
-                              nil];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:GWRadioTunerDidTuneInNotification 
-                                                        object:nil 
-                                                      userInfo:userInfo];
-    
-    
-    
     [[GWRadioStationMetadataCenter sharedCenter] startGatheringMetadataForStation:[self currentStation]];
 }
 
@@ -90,7 +49,6 @@
 
 - (void)stop {
     [[self streamer] stop];
-    [self setStreamer:nil];
 }
 
 - (void)start {

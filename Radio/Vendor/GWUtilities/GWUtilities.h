@@ -9,22 +9,6 @@
 #ifndef Radio_GWUtilities_h
 #define Radio_GWUtilities_h
 
-#import "GWOrderedDictionary.h"
 
-#define UIColorRGB(r, g, b)         ([UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1])
-#define UIColorRGBA(r, g, b, a)     ([UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a])
-#define UIColorHex(rgbValue)        ([UIColor \
-                                        colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
-                                        green:((float)((rgbValue & 0xFF00) >> 8))/255.0 \
-                                        blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0])
-
-
-// https://gist.github.com/992787
-#define CGRectWithPosition(r, x, y)     CGRectMake(x, y, r.size.width, r.size.height)
-#define CGRectWithX(r, x)               CGRectMake(x, r.origin.y, r.size.width, r.size.height)
-#define CGRectWithY(r, y)               CGRectMake(r.origin.x, y, r.size.width, r.size.height)
-#define CGRectWithSize(r, w, h)         CGRectMake(r.origin.x, r.origin.y, w, h)
-#define CGRectWithWidth(r, w)           CGRectMake(r.origin.x, r.origin.y, w, r.size.height)
-#define CGRectWithHeight(r, h)          CGRectMake(r.origin.x, r.origin.y, r.size.width, h)
 
 #endif

@@ -39,10 +39,10 @@ static GWRadioStationMetadataCenter *sharedMetadataCenter;
     [self setCurrentStation:station];
     [self setMetadataURL:[station metadataURL]];
     [[self pollTimer] invalidate];
-    [self setPollTimer:[NSTimer scheduledTimerWithTimeInterval:20 
+    [self setPollTimer:[NSTimer scheduledTimerWithTimeInterval:60 
                                                         target:self 
                                                       selector:@selector(gatherMetadata) 
-                                                      userInfo:nil 
+                                                      userInfo:Nil 
                                                        repeats:YES]];
     [[self pollTimer] fire];
 }

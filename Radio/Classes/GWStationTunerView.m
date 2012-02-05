@@ -8,63 +8,19 @@
 
 #import "GWStationTunerView.h"
 #import "GWRadioStation.h"
-#import "GWGlowingLabel.h"
-
-#define GWStationLabelInactiveTextColor UIColorHex(0x828c96)
-#define GWStationLabelActiveTextColor   [UIColor whiteColor]
-#define GWStationLabelShadowColor       UIColorHex(0x66c7ff)
-
-@interface GWStationTunerView()
-
-#pragma mark - Private methods
-- (void)didReceiveTunerNotification:(NSNotification *)notification;
-- (void)configureStationLabel:(UILabel *)label;
-
-@end
 
 @implementation GWStationTunerView
 
-- (id)initWithFrame:(CGRect)frame {
+- (id)initWithFrame:(CGRect)frame
+{
     self = [super initWithFrame:frame];
     if (self) {
-        
+        // Initialization code
     }
     return self;
 }
 
-- (void)didReceiveTunerNotification:(NSNotification *)notification {
-    NSUInteger index = [[[notification userInfo] objectForKey:@"index"] unsignedIntegerValue];
-    
-    for (NSUInteger i = 0; i < [[self subviews] count]; i++) {
-        GWGlowingLabel *label = (GWGlowingLabel *)[[self subviews] objectAtIndex:i];
-        [label setTextColor:GWStationLabelInactiveTextColor];
-        [label setShadowColor:[UIColor clearColor]];
-        [label setShouldGlow:NO];
-        if (i == index) {
-            [label setTextColor:GWStationLabelActiveTextColor];
-            [label setShouldGlow:YES];
-        }
-    }
-}
-
-- (void)configureStationLabel:(UILabel *)label {
-    [label setTextColor:GWStationLabelInactiveTextColor];
-    [label setFont:[UIFont fontWithName:@"Futura-Medium" size:13]];
-    [label setTextAlignment:UITextAlignmentCenter];
-    [label setBackgroundColor:[UIColor clearColor]];
-    [label setNumberOfLines:2];
-    label.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin);
-    [label setContentMode:UIViewContentModeTop];
-    
-}
-
 - (void)configureWithStations:(NSArray *)stations {
-    [self setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin)];
-    [self setAutoresizesSubviews:YES];
-    [[NSNotificationCenter defaultCenter] addObserver:self 
-                                             selector:@selector(didReceiveTunerNotification:) 
-                                                 name:GWRadioTunerDidTuneInNotification 
-                                               object:nil];
     
     CGSize scrollViewSize = [[self superview] bounds].size;
     CGFloat scrollViewWidth = scrollViewSize.width;
@@ -77,17 +33,13 @@
     
     CGFloat labelOffset = 0;
     for (GWRadioStation *station in stations) {
-        GWGlowingLabel *label = [[GWGlowingLabel alloc] initWithFrame:CGRectMake(labelOffset, 0, stationLabelWidth, scrollViewHeight)];
-        
-        [self configureStationLabel:label];
-        
-        [label setText:[[station name] uppercaseString]];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(labelOffset, 0, stationLabelWidth, scrollViewHeight)];
+        [label setText:[station name]];
+        [label setFont:[UIFont fontWithName:@"Helvetica" size:11]];
+        [label setTextAlignment:UITextAlignmentCenter];
         [self addSubview:label];
-        
         labelOffset += stationLabelWidth;
     }
-    
-    
     
 }
 
@@ -106,10 +58,6 @@
     }
     return stationCount;
     
-}
-
-- (void)finalize {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 /*

@@ -7,8 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "OrderedDictionary.h"
 
-@interface GWOrderedDictionary : OrderedDictionary
+@interface GWOrderedDictionary : NSObject
 
 @end

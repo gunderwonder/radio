@@ -48,8 +48,4 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    [self dismissModalViewControllerAnimated:YES];
-}
-
 @end

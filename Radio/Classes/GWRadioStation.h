@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import "GWOrderedDictionary.h"
-
 @interface GWRadioStation : NSObject {
     NSString *_name;
     NSURL *_streamURL;
@@ -19,7 +17,5 @@
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSURL *streamURL;
 @property (nonatomic, copy) NSURL *metadataURL;
-
-+ (GWOrderedDictionary *)loadRadioStations;
 
 @end
