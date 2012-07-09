@@ -6,29 +6,38 @@
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
+#import <MediaPlayer/MediaPlayer.h>
+
 #import "GWViewController.h"
 #import "GWRadioStationMetadataCenter.h"
-#import "UIImageView+AFNetworking.h"
 #import "GWSpotifySearcher.h"
+#import "GWFlipSideViewController.h"
+#import "GWTrackScollView.h"
 
-#define GWTrackViewWidth 280.0
+#pragma mark - Contants
 #define GWTunerViewWidth 280.0
-#define GWTunerScrollBias 1000
+
+
 
 @interface GWViewController()
+
+#pragma mark - Private accessors
 @property (nonatomic, retain) GWRadioTuner *tuner;
+@property (nonatomic, retain) GWOrderedDictionary *stations;
+@property (nonatomic, assign) NSUInteger currentStationIndex;
+
+#pragma mark - Private methods
 - (void)didReceiveUpdateMetadataNotification:(NSNotification *)notification;
 - (void)updateMetadata:(NSDictionary *)metadata;
-- (GWTunerScrollViewDirection)scrollViewDirection;
-
 @end
-
 
 
 @implementation GWViewController
 
+#pragma mark - Accessors
 @synthesize tuner = _tuner;
-@synthesize radioStationButtons;
+@synthesize stations = _stations;
+@synthesize currentStationIndex = _currentStationIndex;
 @synthesize trackScrollView;
 @synthesize pageControl;
 @synthesize currentShowLabel;
@@ -40,21 +49,16 @@
 @synthesize firstTunerView;
 @synthesize secondTunerView;
 @synthesize thirdTunerView;
+@synthesize playPauseButton;
+@synthesize flipsideButton;
 
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
-- (IBAction)didSwitchStation:(id)sender {
-    UIButton *button = (UIButton *)sender;
-    NSString *stationName = [[button titleLabel] text];
-    [[self tuner] tuneInStationWithName:stationName];
-    for (UIButton *radioStationButton in [self radioStationButtons])
-        [radioStationButton setHighlighted:NO];
-    [button setHighlighted:YES];
-}
 
+#pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)sender {
     if (sender == [self trackScrollView]) {
         if ([sender contentOffset].x < GWTrackViewWidth) {
@@ -74,63 +78,58 @@
             [[self tunerScrollView] setContentOffset:CGPointMake(contentOffset - GWTunerViewWidth, 0)];
         }
         
-        if (lastTunerScrollViewContentOffset > contentOffset)
+        if (lastTunerScrollViewContentOffset > contentOffset - GWTunerScrollBias)
             tunerScrollViewDirection = GWTunerScrollViewDirectionRight;
-        else if (lastTunerScrollViewContentOffset < contentOffset) 
+        else if (lastTunerScrollViewContentOffset < contentOffset - GWTunerScrollBias) 
             tunerScrollViewDirection = GWTunerScrollViewDirectionLeft;
         
-        lastTunerScrollViewContentOffset = contentOffset;
+        lastTunerScrollViewContentOffset = contentOffset - GWTunerScrollBias;
     }
     
     
     
 }
 
-- (void)normalizeContentOffset {
-    CGFloat contentOffsetBias = GWTunerScrollBias - GWTunerViewWidth - GWTunerViewWidth / 2.0;
+- (void)snapToStationWithIndex:(NSUInteger)index {
+    CGFloat stationCount = (CGFloat)[[self stations] count];
+    CGFloat labelWidth = [[self tunerScrollView] frame].size.width / stationCount;
+    CGFloat startOffset = GWTunerScrollBias + GWTunerViewWidth + GWTunerViewWidth / 2.0 + (GWTunerViewWidth / stationCount) / 2.0;
+    CGFloat snapOffset = startOffset - GWTunerViewWidth + index * labelWidth;
     
-    CGFloat startOffset = GWTunerScrollBias + GWTunerViewWidth + GWTunerViewWidth / 2.0 + (GWTunerViewWidth / 4.0f) / 2.0;
-    CGFloat contentOffset = [[self tunerScrollView] contentOffset].x;
+    [[self tunerScrollView] setContentOffset:CGPointMake(snapOffset, 0) animated:YES];
+    
+    [self setCurrentStationIndex:index];
+    NSLog(@"-> %d", index);
+    [[self tuner] tuneInStationWithIndex:index];
+}
+
+
+- (void)snapToStationWithContentOffset:(CGFloat)contentOffset {
+    
+    CGFloat stationCount = (CGFloat)[[self stations] count];
+    CGFloat contentOffsetBias = GWTunerScrollBias - GWTunerViewWidth - GWTunerViewWidth / 2.0;
     CGFloat normalized = contentOffset - contentOffsetBias;
-    CGFloat visibleOffset = normalized;
 
     if (normalized > GWTunerViewWidth && normalized <= GWTunerViewWidth * 2)
         normalized -= GWTunerViewWidth;
     else if (normalized > GWTunerViewWidth * 2 && normalized <= GWTunerViewWidth * 3)
         normalized -= GWTunerViewWidth * 2;
     
-    CGFloat labelWidth = [[self tunerScrollView] frame].size.width / 4.0f;
+    CGFloat labelWidth = [[self tunerScrollView] frame].size.width / stationCount;
     CGFloat lower = 0.f;
     NSInteger i = 0;
     
-//    if (normalized >= lower) {
-        for (i = 0; i < 4; i++) {
-            if (normalized >= lower && normalized < labelWidth * (i + 1.0f))
-                break;
-            
-            lower += labelWidth;
-        }
-//    }
-//    if (i == 4)
-//        i = 3;
-    
-    NSLog(@"%f %f %f", normalized, visibleOffset, startOffset - contentOffsetBias);
-    if (visibleOffset > GWTunerViewWidth && visibleOffset <= GWTunerViewWidth * 2)
-        NSLog(@"Middle");
-    else if (visibleOffset > GWTunerViewWidth * 2 && visibleOffset <= GWTunerViewWidth * 3)
-        NSLog(@"Right");
-    else
-        NSLog(@"Left");
-    
-    CGFloat snapOffset = 0;
-    if (tunerScrollViewDirection == GWTunerScrollViewDirectionRight)
-        snapOffset = startOffset - GWTunerViewWidth + i * labelWidth;
-    else
-        snapOffset = startOffset - GWTunerViewWidth - i * labelWidth;
-    [[self tunerScrollView] setContentOffset:CGPointMake(snapOffset, 0) animated:YES];
-//    NSLog(@"normalized: %f, snapOffset: %f, i: %d, delta: %f", normalized, snapOffset, i, (i + 1.0f) * (labelWidth / 2.0f));
+    for (i = 0; i < stationCount ; i++) {
+        if (normalized >= lower && normalized < labelWidth * (i + 1.0f))
+            break;
+        
+        lower += labelWidth;
+    }
+    NSLog(@"Spanning to station with index %d...", i);
+    [self snapToStationWithIndex:i];
     
 }
+
 
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
@@ -138,18 +137,52 @@
     if (scrollView == [self tunerScrollView]) {
         if (decelerate)
             return;
-        [self normalizeContentOffset];
+        [self snapToStationWithContentOffset:[scrollView contentOffset].x];
     }
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     if (scrollView == [self tunerScrollView]) {
-        [self normalizeContentOffset];
+        [self snapToStationWithContentOffset:[scrollView contentOffset].x];
     }
 }
 
 - (IBAction)didSpotifySearch:(id)sender {
-//    [GWSpotifySearcher searchForTrack:[[self currentTrackLabel] text] byArtist:[[self currentArtistLabel] text]]; 
+//     
+}
+
+- (void)updatePlayPauseButtonWithState:(BOOL)isPlaying {
+    if (isPlaying) {
+        [[self playPauseButton] setImage:[UIImage imageNamed:@"button_pause"] forState:UIControlStateNormal];
+    } else {
+        [[self playPauseButton] setImage:[UIImage imageNamed:@"button_play"] forState:UIControlStateNormal];
+    }
+}
+
+- (void)didReceiveTunerNotification:(NSNotification *)notification {
+    [self updatePlayPauseButtonWithState:YES];
+}
+
+- (IBAction)didTouchPlayPause:(UIButton *)sender {
+    if ([self tuner] == nil)
+        return;
+    
+    [self updatePlayPauseButtonWithState:![[self tuner] isPlaying]];
+    if ([[self tuner] isPlaying])
+        [[self tuner] pause];
+    else
+        [[self tuner] start];
+    
+    
+}
+
+- (IBAction)didTouchFlipsideButton:(id)sender {
+    GWFlipSideViewController *flipsideViewController = [[GWFlipSideViewController alloc] init];
+    
+    [flipsideViewController setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
+    
+    [self presentModalViewController:flipsideViewController animated:YES];
+    
 }
 
 - (void)didReceiveUpdateMetadataNotification:(NSNotification *)notification {
@@ -194,88 +227,11 @@
     
 }
 
-- (void)configureTrackView:(GWTrackView *)trackView withDictionary:(NSDictionary *)trackData {
+- (void)layoutTunerView {
     
-    if (trackData == nil) {
-        [trackView setHidden:YES];
-        return;
-    }
-        
-    
-    NSURL *coverArtURL = [trackData objectForKey:@"coverArtImageURL"];
-    UIImageView *coverArtView = [trackView coverArtView];
-    if (coverArtURL) {
-        [coverArtView setImageWithURL:coverArtURL];
-        [coverArtView setHidden:NO];
-    } else {
-        [coverArtView setHidden:YES];
-    }
-    
-    NSString *artist = [trackData objectForKey:@"artist"];
-    artist = (artist == nil) ? @"" : artist;
-    [[trackView artistLabel] setText:artist];
-    
-    NSString *title = [trackData objectForKey:@"track"];
-    title = (title == nil) ? @"" : title;
-    
-    [[trackView trackLabel] setText:title];
-    [trackView setHidden:NO];
-//    [[self spotifySearchButton] setHidden:!([artist length] || [title length])];
-}
-
-
-- (void)updateMetadata:(NSDictionary *)metadata {
-    [[self currentShowLabel] setText:[metadata objectForKey:@"currentShowName"]];
-    [[self nextShowLabel] setText:[metadata objectForKey:@"nextShowName"]];
-    
-    
-    NSDictionary *currentTrack = [metadata objectForKey:@"currentTrack"];
-    NSDictionary *previousTrack = [metadata objectForKey:@"previousTrack"];
-    NSDictionary *nextTrack = [metadata objectForKey:@"nextTrack"];
-    
-    [self configureTrackView:[self lastTrackView] withDictionary:previousTrack];
-    [self configureTrackView:[self currentTrackView] withDictionary:currentTrack];
-    [self configureTrackView:[self nextTrackView] withDictionary:nextTrack];
-    
-    [self layoutTrackViews];
-    
-    NSLog(@"Updated metadata.");
-}
-
-
-#pragma mark - View lifecycle
-
-- (void)viewDidLoad {
-    
-#ifdef DEBUG
-    NSLog(@"Starting in debug mode...");
-#endif
-    
-    NSString *stationFile = [[NSBundle mainBundle] pathForResource:@"RadioStations" ofType:@"plist"];
-    NSDictionary *stationData = [[NSDictionary alloc] initWithContentsOfFile:stationFile];
-    
-    GWRadioStation *station = nil;
-    NSMutableDictionary *stations = [[NSMutableDictionary alloc] init];
-    for (NSString *stationName in stationData) {
-        NSDictionary *data = [stationData objectForKey:stationName];
-        
-        station = [[GWRadioStation alloc] init];
-        [station setName:stationName];
-        [station setStreamURL:[NSURL URLWithString:[data objectForKey:@"streamURL"]]];
-        [station setMetadataURL:[NSURL URLWithString:[data objectForKey:@"metadataURL"]]];
-        
-        [stations setObject:station forKey:stationName];
-    }
-    
-    [[[self lastTrackView] label] setText:@"Forrige låt"];
-    [[[self currentTrackView] label] setText:@"Spilles nå"];
-    [[[self nextTrackView] label] setText:@"Neste låt"];
-    
-    [self setTuner:[[GWRadioTuner alloc] initWithStations:stations]];
-    
-    [[self firstTunerView] configureWithStations:[stations allValues]];
-    [[self secondTunerView] configureWithStations:[stations allValues]];
-    [[self thirdTunerView] configureWithStations:[stations allValues]];
+    [[self firstTunerView] configureWithStations:[[self stations] allValues]];
+    [[self secondTunerView] configureWithStations:[[self stations] allValues]];
+    [[self thirdTunerView] configureWithStations:[[self stations] allValues]];
     
     NSUInteger i = 0;
     for (GWStationTunerView *tunerView in [NSArray arrayWithObjects:[self firstTunerView], 
@@ -292,12 +248,97 @@
     
     [[self tunerScrollView] setContentSize:CGSizeMake(GWTunerScrollBias * 2 + GWTunerViewWidth * 3, 
                                                       [[self tunerScrollView] bounds].size.height)];
-    [[self tunerScrollView] setContentOffset:CGPointMake(GWTunerScrollBias + GWTunerViewWidth + GWTunerViewWidth / 2.0 + (GWTunerViewWidth / [stations count]) / 2.0, 0)];
+    [[self tunerScrollView] setContentOffset:CGPointMake(GWTunerScrollBias + GWTunerViewWidth + GWTunerViewWidth / 2.0 + (GWTunerViewWidth / [[self stations] count]) / 2.0, 0)];
+    
+    lastTunerScrollViewContentOffset = [[self tunerScrollView] contentOffset].x;
+}
 
+- (void)updateLockscreenMetadataWithTrackData:(NSMutableDictionary *)trackData {
+    NSMutableDictionary *metadata = [[NSMutableDictionary alloc] init];
+    
+    NSString *artist = [trackData objectForKey:@"artist"];
+    artist = (artist == nil) ? @"" : artist;
+    [metadata setObject:artist forKey:MPMediaItemPropertyArtist];
+    
+    
+    NSString *title = [trackData objectForKey:@"track"];
+    title = (title == nil) ? @"" : title;
+    [metadata setObject:title forKey:MPMediaItemPropertyTitle];
+    
+    NSLog(@"%@", metadata);
+    
+    [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:nil];
+    [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:metadata];
+}
+
+
+- (void)updateMetadata:(NSDictionary *)metadata {
+    [[self currentShowLabel] setText:[[metadata objectForKey:@"currentShowName"] uppercaseString]];
+    [[self nextShowLabel] setText:[[metadata objectForKey:@"nextShowName"] uppercaseString]];
+    
+    
+    NSDictionary *currentTrack = [metadata objectForKey:@"currentTrack"];
+    NSDictionary *previousTrack = [metadata objectForKey:@"previousTrack"];
+    NSDictionary *nextTrack = [metadata objectForKey:@"nextTrack"];
+        
+    [[self lastTrackView] configureWithTrackData:previousTrack];
+    [[self currentTrackView] configureWithTrackData:currentTrack];
+    [[self nextTrackView] configureWithTrackData:nextTrack];
+    
+    [self layoutTrackViews];
+    
+    [self updateLockscreenMetadataWithTrackData:[NSDictionary dictionaryWithDictionary:currentTrack]];
+    NSLog(@"Updated metadata.");
+}
+
+
+#pragma mark - View lifecycle
+
+- (void)trackScrollView:(GWTrackScollView *)scrollView didDetectSingleTouch:(UITouch *)touch {
+    CGFloat leftOffset = [touch locationInView:scrollView].x;
+    CGFloat contentLeftOffset = leftOffset - [scrollView contentOffset].x;
+    
+    CGFloat visibleStationsCount = 3.0f;
+    CGFloat stationSelectionWidth = [scrollView frame].size.width / visibleStationsCount;
+    
+    NSInteger stationIndex = -1;
+    if (contentLeftOffset < stationSelectionWidth)
+        stationIndex = ([self currentStationIndex] - 1) % [[self stations] count];
+    else if (contentLeftOffset > stationSelectionWidth)
+        stationIndex = ([self currentStationIndex] + 1) % [[self stations] count];
+        
+    NSLog(@"%f %f", contentLeftOffset, stationSelectionWidth * visibleStationsCount - 1);
+    
+    if (stationIndex != -1)
+        [self snapToStationWithIndex:stationIndex];
+}
+
+- (void)viewDidLoad {
+    
+#ifdef DEBUG
+    NSLog(@"Starting in debug mode...");
+#endif
+    
+    [self setStations:[GWRadioStation loadRadioStations]];    
+    [[[self lastTrackView] label] setText:@"FORRIGE LÅT"];
+    [[[self currentTrackView] label] setText:@"SPILLES NÅ"];
+    [[[self nextTrackView] label] setText:@"NESTE LÅT"];
+    
+    [self setTuner:[[GWRadioTuner alloc] initWithStations:[self stations]]];
+    [self layoutTunerView];
+    
+//    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapGestureCaptured:)];
+    //Default value for cancelsTouchesInView is YES, which will prevent buttons to be clicked
+    [[self trackScrollView] setCanCancelContentTouches:NO]; 
+//    [[self trackScrollView] addGestureRecognizer:singleTap]; 
     
     [[NSNotificationCenter defaultCenter] addObserver:self 
                                              selector:@selector(didReceiveUpdateMetadataNotification:) 
                                                  name:GWRadioStationMetadataDidChangeNotification 
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self 
+                                             selector:@selector(didReceiveTunerNotification:) 
+                                                 name:GWRadioTunerDidTuneInNotification 
                                                object:nil];
     
     
@@ -321,6 +362,8 @@
     [self setFirstTunerView:nil];
     [self setSecondTunerView:nil];
     [self setThirdTunerView:nil];
+    [self setPlayPauseButton:nil];
+    [self setFlipsideButton:nil];
     [super viewDidUnload];
 }
 
@@ -368,5 +411,6 @@
 			break;
 	}
 }
+
 
 @end

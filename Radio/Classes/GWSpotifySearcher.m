@@ -16,12 +16,29 @@
     NSString *searchString = [NSString stringWithFormat:@"artist:%@+title:%@", 
                               [artistName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], 
                               [trackName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], nil];
-    NSString *localURLString = [NSString stringWithFormat:@"spotify:search:@%", searchString, nil];
+    NSString *localURLString = [NSString stringWithFormat:@"spotify:search:%@", searchString, nil];
     NSString *HTTPURLString = [NSString stringWithFormat:@"http://open.spotify.com/search/%@", searchString, nil];
+    NSLog(@"%@", localURLString);
+    
+#if 0
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Spotify" 
+                                                        message:localURLString 
+                                                       delegate:self 
+                                              cancelButtonTitle:@"Avbryt" 
+                                              otherButtonTitles:nil];
+#else
     
     if ([GWSpotifySearcher canOpenSpotify])
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:localURLString]];
-    
+
+    else {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Spotify" 
+                                                            message:@"Spotify er ikke installert på enheten." 
+                                                           delegate:self 
+                                                  cancelButtonTitle:@"Avbryt" 
+                                                  otherButtonTitles:nil];
+        [alertView show];
+    }
 //    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Spotify" 
 //                               message:@"Spotify er ikke installert. Søk i Safari?" 
 //                              delegate:self 
@@ -29,13 +46,9 @@
 //                     otherButtonTitles:@"OK", nil];
 //    [alertView show];
 
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Spotify" 
-                                                        message:@"Spotify er ikke installert på enheten." 
-                                                       delegate:self 
-                                              cancelButtonTitle:@"Avbryt" 
-                                              otherButtonTitles:nil];
-    [alertView show];
-    NSLog(@"%@", HTTPURLString);
+    
+#endif
+    
 
     
 }

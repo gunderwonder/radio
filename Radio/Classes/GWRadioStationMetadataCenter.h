@@ -23,7 +23,7 @@
 + (GWRadioStationMetadataCenter *)sharedCenter;
 
 - (void)startGatheringMetadataForStation:(GWRadioStation *)station;
-- (void)stopGatheringMetadata:(GWRadioStation *)station;
+- (void)stopGatheringMetadata;
 
 
 

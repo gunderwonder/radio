@@ -39,10 +39,10 @@ static GWRadioStationMetadataCenter *sharedMetadataCenter;
     [self setCurrentStation:station];
     [self setMetadataURL:[station metadataURL]];
     [[self pollTimer] invalidate];
-    [self setPollTimer:[NSTimer scheduledTimerWithTimeInterval:60 
+    [self setPollTimer:[NSTimer scheduledTimerWithTimeInterval:20 
                                                         target:self 
                                                       selector:@selector(gatherMetadata) 
-                                                      userInfo:Nil 
+                                                      userInfo:nil 
                                                        repeats:YES]];
     [[self pollTimer] fire];
 }
@@ -79,7 +79,7 @@ static GWRadioStationMetadataCenter *sharedMetadataCenter;
     [operation start];
 }
 
-- (void)stopGatheringMetadata:(GWRadioStation *)station {
+- (void)stopGatheringMetadata {
     [[self pollTimer] invalidate];
 }
 
@@ -102,7 +102,7 @@ static GWRadioStationMetadataCenter *sharedMetadataCenter;
                 
                 NSMutableDictionary *track = [[NSMutableDictionary alloc] init];
                 NSString *imageURL = [element objectForKey:@"imgurl"];
-                if (imageURL)
+                if (imageURL && ![imageURL isEqualToString:@"http://nettradio.nrk.no/albumill/.jpg"])
                     [track setObject:[NSURL URLWithString:imageURL] forKey:@"coverArtImageURL"];
                 
                 NSString *artist = [element objectForKey:@"contributor"];

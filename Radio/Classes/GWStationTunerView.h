@@ -11,6 +11,6 @@
 @interface GWStationTunerView : UIView
 
 - (void)configureWithStations:(NSArray *)stations;
-- (CGFloat)snapOffsetForScrollOffset:(CGFloat)scrollOffset;
+
 
 @end
