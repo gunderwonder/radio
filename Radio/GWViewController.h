@@ -11,6 +11,7 @@
 #import "GWTrackView.h"
 #import "GWStationTunerView.h"
 
+
 typedef enum GWTunerScrollViewDirection {
     GWTunerScrollViewDirectionNone,
     GWTunerScrollViewDirectionRight,
@@ -19,11 +20,16 @@ typedef enum GWTunerScrollViewDirection {
 
 @interface GWViewController : UIViewController {
     GWRadioTuner *_tuner;
+    GWOrderedDictionary *_stations;
+    
+    
+    NSUInteger _currentStationIndex;
+    
     NSInteger lastTunerScrollViewContentOffset;
+    
     GWTunerScrollViewDirection tunerScrollViewDirection;
 }
 
-@property (weak, nonatomic) IBOutletCollection(UIButton) NSArray *radioStationButtons;
 @property (weak, nonatomic) IBOutlet UIScrollView *trackScrollView;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (weak, nonatomic) IBOutlet UILabel *currentShowLabel;
@@ -35,9 +41,12 @@ typedef enum GWTunerScrollViewDirection {
 @property (weak, nonatomic) IBOutlet GWStationTunerView *firstTunerView;
 @property (weak, nonatomic) IBOutlet GWStationTunerView *secondTunerView;
 @property (weak, nonatomic) IBOutlet GWStationTunerView *thirdTunerView;
+@property (weak, nonatomic) IBOutlet UIButton *playPauseButton;
+@property (weak, nonatomic) IBOutlet UIButton *flipsideButton;
 
-- (IBAction)didSwitchStation:(id)sender;
 - (IBAction)didSpotifySearch:(id)sender;
 
+- (IBAction)didTouchPlayPause:(UIButton *)sender;
+- (IBAction)didTouchFlipsideButton:(id)sender;
 
 @end

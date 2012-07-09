@@ -14,5 +14,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *trackLabel;
 @property (weak, nonatomic) IBOutlet UILabel *artistLabel;
 @property (weak, nonatomic) IBOutlet UILabel *label;
+@property (weak, nonatomic) IBOutlet UIButton *spotifyButton;
+
+
+- (void)configureWithTrackData:(NSDictionary *)trackData;
+- (IBAction)didTouchSpotifyButton:(UIButton *)sender;
 
 @end
