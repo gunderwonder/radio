@@ -60,6 +60,8 @@
 
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)sender {
+    
+    // track list scolling 
     if (sender == [self trackScrollView]) {
         if ([sender contentOffset].x < GWTrackViewWidth) {
             [[self pageControl] setCurrentPage:0];
@@ -70,13 +72,14 @@
         }
     }
     
+    // tuner scrolling: remember last scroll offset
     if (sender == [self tunerScrollView]) {
+        
         CGFloat contentOffset = [[self tunerScrollView] contentOffset].x;
-        if (contentOffset < GWTunerScrollBias + (GWTunerViewWidth / 2)) {
+        if (contentOffset < GWTunerScrollBias + (GWTunerViewWidth / 2))
             [[self tunerScrollView] setContentOffset:CGPointMake(contentOffset + GWTunerViewWidth, 0)];
-        } else if (contentOffset > GWTunerScrollBias + (GWTunerViewWidth * 2 - (GWTunerViewWidth / 2))) {
+        else if (contentOffset > GWTunerScrollBias + (GWTunerViewWidth * 2 - (GWTunerViewWidth / 2)))
             [[self tunerScrollView] setContentOffset:CGPointMake(contentOffset - GWTunerViewWidth, 0)];
-        }
         
         if (lastTunerScrollViewContentOffset > contentOffset - GWTunerScrollBias)
             tunerScrollViewDirection = GWTunerScrollViewDirectionRight;
@@ -86,20 +89,34 @@
         lastTunerScrollViewContentOffset = contentOffset - GWTunerScrollBias;
     }
     
-    
-    
 }
 
-- (void)snapToStationWithIndex:(NSUInteger)index {
+- (void)snapToStationWithIndex:(NSUInteger)index scrolling:(BOOL)scrolling {
+    
+    NSUInteger currentIndex = [self currentStationIndex];
+    
     CGFloat stationCount = (CGFloat)[[self stations] count];
     CGFloat labelWidth = [[self tunerScrollView] frame].size.width / stationCount;
     CGFloat startOffset = GWTunerScrollBias + GWTunerViewWidth + GWTunerViewWidth / 2.0 + (GWTunerViewWidth / stationCount) / 2.0;
-    CGFloat snapOffset = startOffset - GWTunerViewWidth + index * labelWidth;
+    
+    NSInteger scrollIndex = index;
+    
+    // if this snap is started by a single tap, scroll in the correct direction when we are past the last station index
+    if (!scrolling) {
+        NSInteger step = (NSInteger)index - (NSInteger)currentIndex;
+        if (abs(step) != 1) {
+            if (step < 1)
+                scrollIndex = abs(step) + 1;
+            else
+                scrollIndex = -1;
+        }
+    }
+    
+    CGFloat snapOffset = startOffset - GWTunerViewWidth + scrollIndex * labelWidth;
     
     [[self tunerScrollView] setContentOffset:CGPointMake(snapOffset, 0) animated:YES];
     
     [self setCurrentStationIndex:index];
-    NSLog(@"-> %d", index);
     [[self tuner] tuneInStationWithIndex:index];
 }
 
@@ -125,8 +142,8 @@
         
         lower += labelWidth;
     }
-    NSLog(@"Spanning to station with index %d...", i);
-    [self snapToStationWithIndex:i];
+    NSLog(@"Snapping to station with index %d...", i);
+    [self snapToStationWithIndex:i scrolling:YES];
     
 }
 
@@ -172,7 +189,6 @@
         [[self tuner] pause];
     else
         [[self tuner] start];
-    
     
 }
 
@@ -244,8 +260,6 @@
         i++;
     }
     
-    
-    
     [[self tunerScrollView] setContentSize:CGSizeMake(GWTunerScrollBias * 2 + GWTunerViewWidth * 3, 
                                                       [[self tunerScrollView] bounds].size.height)];
     [[self tunerScrollView] setContentOffset:CGPointMake(GWTunerScrollBias + GWTunerViewWidth + GWTunerViewWidth / 2.0 + (GWTunerViewWidth / [[self stations] count]) / 2.0, 0)];
@@ -265,8 +279,6 @@
     title = (title == nil) ? @"" : title;
     [metadata setObject:title forKey:MPMediaItemPropertyTitle];
     
-    NSLog(@"%@", metadata);
-    
     [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:nil];
     [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:metadata];
 }
@@ -275,7 +287,6 @@
 - (void)updateMetadata:(NSDictionary *)metadata {
     [[self currentShowLabel] setText:[[metadata objectForKey:@"currentShowName"] uppercaseString]];
     [[self nextShowLabel] setText:[[metadata objectForKey:@"nextShowName"] uppercaseString]];
-    
     
     NSDictionary *currentTrack = [metadata objectForKey:@"currentTrack"];
     NSDictionary *previousTrack = [metadata objectForKey:@"previousTrack"];
@@ -307,10 +318,10 @@
     else if (contentLeftOffset > stationSelectionWidth)
         stationIndex = ([self currentStationIndex] + 1) % [[self stations] count];
         
-    NSLog(@"%f %f", contentLeftOffset, stationSelectionWidth * visibleStationsCount - 1);
+    //NSLog(@"%f %f", contentLeftOffset, stationSelectionWidth * visibleStationsCount - 1);
     
     if (stationIndex != -1)
-        [self snapToStationWithIndex:stationIndex];
+        [self snapToStationWithIndex:stationIndex scrolling:NO];
 }
 
 - (void)viewDidLoad {

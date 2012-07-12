@@ -83,12 +83,14 @@
 
 
 - (void)tuneInStation:(GWRadioStation *)station {
-    return;
+    
     
     if (station == [self currentStation])
         return;
     
     NSLog(@"Tuning to station %@...", [station name]);
+    
+    return;
 [self setCurrentStation:station];
     
     NSLog(@"%@", [[self currentStation] streamURL]);
