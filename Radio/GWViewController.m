@@ -188,7 +188,7 @@
     if ([[self tuner] isPlaying])
         [[self tuner] pause];
     else
-        [[self tuner] start];
+        [[self tuner] play];
     
 }
 
@@ -410,13 +410,13 @@
 			[[self tuner] pause];
 			break;
 		case UIEventSubtypeRemoteControlPlay:
-			[[self tuner] start];
+			[[self tuner] play];
 			break;
 		case UIEventSubtypeRemoteControlPause:
 			[[self tuner] pause];
 			break;
 		case UIEventSubtypeRemoteControlStop:
-			[[self tuner] stop];
+			[[self tuner] pause];
 			break;
 		default:
 			break;

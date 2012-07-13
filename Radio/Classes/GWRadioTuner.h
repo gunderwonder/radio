@@ -9,11 +9,10 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 
-#import "AudioStreamer.h"
 #import "GWRadioStation.h"
 
 @interface GWRadioTuner : NSObject {
-    AudioStreamer *_streamer;
+
     NSDictionary *_radioStations;
     GWRadioStation *_currentStation;
     AVPlayer *player;
@@ -33,8 +32,7 @@
 
 #pragma mark - Playback
 - (void)pause;
-- (void)stop;
-- (void)start;
+- (void)play;
 - (BOOL)isPlaying;
 
 
