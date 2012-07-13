@@ -1,6 +1,3 @@
-[submodule "Radio/Vendor/AudioStreamer"]
-	path = Radio/Vendor/AudioStreamer
-	url = https://github.com/rayh/AudioStreamer.git
 [submodule "Radio/Vendor/AFNetworking"]
 	path = Radio/Vendor/AFNetworking
 	url = https://github.com/AFNetworking/AFNetworking.git
