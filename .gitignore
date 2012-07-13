@@ -6,4 +6,3 @@ build
 *.xcodeproj/project.xcworkspace/xcuserdata/*
 Icon\r
 .dropbox
-Assets
