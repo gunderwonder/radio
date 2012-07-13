@@ -97,11 +97,11 @@
     }
     
     
-    NSString *artist = [[trackData objectForKey:@"artist"] uppercaseString];
+    NSString *artist = [trackData objectForKey:@"artist"];
     artist = (artist == nil) ? @"" : artist;
     [[self artistLabel] setText:artist];
     
-    NSString *title = [[trackData objectForKey:@"track"] uppercaseString];
+    NSString *title = [trackData objectForKey:@"track"];
     title = (title == nil) ? @"" : title;
     [[self trackLabel] setText:title];
     
