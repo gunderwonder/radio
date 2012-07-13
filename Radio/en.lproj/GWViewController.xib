@@ -124,7 +124,7 @@
 							<object class="IBUIView" id="7945254">
 								<reference key="NSNextResponder" ref="34322650"/>
 								<int key="NSvFlags">274</int>
-								<string key="NSFrame">{{-17, 0}, {240, 109}}</string>
+								<string key="NSFrame">{{-17, 0}, {249, 109}}</string>
 								<reference key="NSSuperview" ref="34322650"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="598752168"/>
@@ -158,7 +158,7 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 							</object>
 						</array>
-						<string key="NSFrame">{{37, 239}, {240, 90}}</string>
+						<string key="NSFrame">{{35, 246}, {249, 90}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="7945254"/>
@@ -205,7 +205,7 @@
 								<string key="NSFrame">{{0, 10}, {280, 41}}</string>
 								<reference key="NSSuperview" ref="929865781"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
+								<reference key="NSNextKeyView" ref="293785822"/>
 								<reference key="IBUIBackgroundColor" ref="723595873"/>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 							</object>
@@ -296,6 +296,7 @@
 						<string key="NSFrame">{{212, 389}, {50, 50}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>

@@ -9,7 +9,7 @@
 #ifndef Radio_GWRadioApp_h
 #define Radio_GWRadioApp_h
 
-#define GWTrackViewWidth 240.0
+#define GWTrackViewWidth 249.0
 #define GWTunerScrollBias 1000
 
 #define GWRadioTunerDidTuneInNotification @"GWRadioTunerDidTuneInNotification"
