@@ -6,6 +6,8 @@
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
+#import <QuartzCore/CALayer.h>
+
 #import "GWTrackView.h"
 #import "UIImageView+AFNetworking.h"
 #import "GWSpotifySearcher.h"
@@ -41,6 +43,9 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         [self loadSubview];
+        [[[self coverArtView] layer] setMasksToBounds:YES];
+        [[[self coverArtView] layer] setBorderColor:[UIColor whiteColor].CGColor];
+        [[[self coverArtView] layer] setBorderWidth:0.5f];
     }
     return self;
 }
@@ -72,29 +77,33 @@
     
     NSURL *coverArtURL = [trackData objectForKey:@"coverArtImageURL"];
     
+    if (coverArtURL)
+        [[self coverArtView] setImageWithURL:coverArtURL placeholderImage:nil]; 
+    else
+        [[self coverArtView] setImage:nil];
     
-    CGFloat metadataOffset = 0.0f;
-    CGFloat metadataWidth = GWTrackViewMetadataDefaultWidth;
-    if (coverArtURL) {
-        [[self coverArtView] setImageWithURLRequest:[NSURLRequest requestWithURL:coverArtURL] 
-                                   placeholderImage:nil 
-                                            success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                                [UIView animateWithDuration:.5 animations:^{
-                                                    [[self coverArtView] setAlpha:1.0];
-                                                }];
-                                            }
-                                            failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                                [self animateMetadataToOffset:0.0f width:metadataWidth]; 
-                                            }];
-        metadataOffset = GWTrackViewMetadataLeftOffset;
-        metadataWidth = GWTrackViewWidth;
-    } else {
-        
-        [UIView animateWithDuration:.5 animations:^{
-            [[self coverArtView] setAlpha:0.0];
-        }];
-        
-    }
+//    CGFloat metadataOffset = 0.0f;
+//    CGFloat metadataWidth = GWTrackViewMetadataDefaultWidth;
+//    if (coverArtURL) {
+//        [[self coverArtView] setImageWithURLRequest:[NSURLRequest requestWithURL:coverArtURL] 
+//                                   placeholderImage:nil 
+//                                            success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+//                                                [UIView animateWithDuration:.5 animations:^{
+//                                                    [[self coverArtView] setAlpha:1.0];
+//                                                }];
+//                                            }
+//                                            failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+//                                                [self animateMetadataToOffset:0.0f width:metadataWidth]; 
+//                                            }];
+//        metadataOffset = GWTrackViewMetadataLeftOffset;
+//        metadataWidth = GWTrackViewWidth;
+//    } else {
+//        
+//        [UIView animateWithDuration:.5 animations:^{
+//            [[self coverArtView] setAlpha:0.0];
+//        }];
+//        
+//    }
     
     
     NSString *artist = [trackData objectForKey:@"artist"];
@@ -107,7 +116,7 @@
     
     [self setHidden:NO];
     
-    [self animateMetadataToOffset:metadataOffset width:metadataWidth];
+//    [self animateMetadataToOffset:metadataOffset width:metadataWidth];
     
     
 }

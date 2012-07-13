@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface GWSpotifySearcher : NSObject
+@interface GWSpotifySearcher : NSObject <UIAlertViewDelegate>
 
 + (void)searchForTrack:(NSString *)trackName byArtist:(NSString *)artistName;
 + (BOOL)canOpenSpotify;

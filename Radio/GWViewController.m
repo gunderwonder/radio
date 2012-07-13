@@ -206,6 +206,8 @@
 }
 
 - (void)layoutTrackViews {
+    [[self trackScrollView] setAlpha:0.0];
+    
     NSUInteger i = 0;
     for (UIView *view in [[self trackScrollView] subviews]) {
         if (![view isKindOfClass:[GWTrackView class]])
@@ -239,7 +241,11 @@
             
     }
     [[self pageControl] setCurrentPage:currentPage];
-    [[self trackScrollView] setContentOffset:CGPointMake(contentOffset, 0) animated:YES];
+    [[self trackScrollView] setContentOffset:CGPointMake(contentOffset, 0) animated:NO];
+    
+    [UIView animateWithDuration:0.8f animations:^(void) {
+        [[self trackScrollView] setAlpha:1.0f];
+    }];
     
 }
 
@@ -286,7 +292,12 @@
 
 - (void)updateMetadata:(NSDictionary *)metadata {
     [[self currentShowLabel] setText:[metadata objectForKey:@"currentShowName"]];
-    [[self nextShowLabel] setText:[metadata objectForKey:@"nextShowName"]];
+    
+    NSString *nextShowName = [metadata objectForKey:@"nextShowName"];
+    if ([nextShowName length])
+        nextShowName = [NSString stringWithFormat:@"NESTE: %@", nextShowName];
+    
+    [[self nextShowLabel] setText:nextShowName];
     
     NSDictionary *currentTrack = [metadata objectForKey:@"currentTrack"];
     NSDictionary *previousTrack = [metadata objectForKey:@"previousTrack"];
