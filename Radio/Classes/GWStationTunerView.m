@@ -49,7 +49,8 @@
 
 - (void)configureStationLabel:(UILabel *)label {
     [label setTextColor:GWStationLabelInactiveTextColor];
-    [label setFont:[UIFont fontWithName:@"Futura-Medium" size:13]];
+    [label setFont:[UIFont fontWithName:@"Futura-Medium" size:14]];
+
     [label setTextAlignment:UITextAlignmentCenter];
     [label setBackgroundColor:[UIColor clearColor]];
     [label setNumberOfLines:2];
