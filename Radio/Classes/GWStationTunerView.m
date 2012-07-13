@@ -27,7 +27,22 @@
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        UIImageView *backgroundImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dots"]];
         
+        
+        [self addSubview:backgroundImage];
+    }
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        UIImageView *backgroundImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dots"]];
+        
+        
+        [self addSubview:backgroundImage];
+        [backgroundImage setFrame:CGRectWithY([backgroundImage frame], [self center].y - 6.0)];
     }
     return self;
 }
@@ -36,7 +51,14 @@
     NSUInteger index = [[[notification userInfo] objectForKey:@"index"] unsignedIntegerValue];
     
     for (NSUInteger i = 0; i < [[self subviews] count]; i++) {
-        GWGlowingLabel *label = (GWGlowingLabel *)[[self subviews] objectAtIndex:i];
+        UIView *view = [[self subviews] objectAtIndex:i];
+        if (![view isKindOfClass:[GWGlowingLabel class]]) {
+            index++;
+            continue;
+        }
+            
+        
+        GWGlowingLabel *label = (GWGlowingLabel *)view;
         [label setTextColor:GWStationLabelInactiveTextColor];
         [label setShadowColor:[UIColor clearColor]];
         [label setShouldGlow:NO];

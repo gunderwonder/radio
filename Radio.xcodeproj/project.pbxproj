@@ -36,6 +36,7 @@
 		8AA04CEC15B02EAA0015F507 /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA04CE015B02EAA0015F507 /* AFURLConnectionOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8AA04CED15B02EAA0015F507 /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA04CE215B02EAA0015F507 /* AFXMLRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8AA04CEE15B02EAA0015F507 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA04CE415B02EAA0015F507 /* UIImageView+AFNetworking.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		8AA04CF015B084620015F507 /* dots@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AA04CEF15B084620015F507 /* dots@2x.png */; };
 		8AA0EA4514C2F4C30096A6A4 /* GWTrackScollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0EA4414C2F4C30096A6A4 /* GWTrackScollView.m */; };
 		8AC5D9A8149D09B800A63579 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AC5D9A7149D09B800A63579 /* UIKit.framework */; };
 		8AC5D9AA149D09B800A63579 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AC5D9A9149D09B800A63579 /* Foundation.framework */; };
@@ -120,6 +121,7 @@
 		8AA04CE215B02EAA0015F507 /* AFXMLRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFXMLRequestOperation.m; sourceTree = "<group>"; };
 		8AA04CE315B02EAA0015F507 /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
 		8AA04CE415B02EAA0015F507 /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
+		8AA04CEF15B084620015F507 /* dots@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dots@2x.png"; sourceTree = "<group>"; };
 		8AA0EA4314C2F4C30096A6A4 /* GWTrackScollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWTrackScollView.h; sourceTree = "<group>"; };
 		8AA0EA4414C2F4C30096A6A4 /* GWTrackScollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GWTrackScollView.m; sourceTree = "<group>"; };
 		8AC5D9A3149D09B800A63579 /* Radio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Radio.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -228,6 +230,7 @@
 		8A40512C14BA062E00C7BB42 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				8AA04CEF15B084620015F507 /* dots@2x.png */,
 				8A0C4FB014BA3F6500D2E864 /* background_flipside@2x.png */,
 				8A40512E14BA064A00C7BB42 /* background@2x.png */,
 				8A40512F14BA064A00C7BB42 /* button_airplay@2x.png */,
@@ -507,6 +510,7 @@
 				8A40513914BA064A00C7BB42 /* button_spotify@2x.png in Resources */,
 				8A0C4FAF14BA3EE200D2E864 /* GWFlipSideViewController.xib in Resources */,
 				8A0C4FB114BA3F6500D2E864 /* background_flipside@2x.png in Resources */,
+				8AA04CF015B084620015F507 /* dots@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
