@@ -10,14 +10,14 @@
 #import "GWRadioStationMetadataCenter.h"
 
 @interface GWRadioTuner()
-@property (nonatomic, retain) AudioStreamer *streamer;
+@property (nonatomic, retain) AVPlayer *player;
 
 - (void)tuneInStation:(GWRadioStation *)station;
 @end
 
 @implementation GWRadioTuner
 
-@synthesize streamer = _streamer;
+@synthesize player = _player;
 @synthesize radioStations = _radioStations;
 @synthesize currentStation = _currentStation;
 
@@ -45,8 +45,11 @@
         
         i++;
     }
-    if (theStation == nil)
+    if (theStation == nil) {
         NSLog(@"Couldn't find station with index %d", index);
+        return;
+    }
+        
     
     [self tuneInStationWithName:theStation];
 }
@@ -54,31 +57,21 @@
 - (void)observeValueForKeyPath:(NSString*) path 
                       ofObject:(id)object 
                         change:(NSDictionary*)change 
-                       context:(void*)context
-{
-        AVPlayerStatus status = [[change objectForKey:NSKeyValueChangeNewKey] integerValue];
-        switch (status)
-        {
-                /* Indicates that the status of the player is not yet known because 
-                 it has not tried to load new media resources for playback */
-            case AVPlayerStatusUnknown:
-            {
-                NSLog(@"WHA?");
-            }
-                break;
-                
-            case AVPlayerStatusReadyToPlay:
-            {
-                [player play];
-            }
-                break;
-                
-            case AVPlayerStatusFailed:
-            {
-                NSLog(@"WENGA?");
-            }
-                break;
-        }
+                       context:(void*)context {
+    
+    AVPlayerStatus status = [[change objectForKey:NSKeyValueChangeNewKey] integerValue];
+    NSLog(@"status %d", status);
+    switch (status) {
+        case AVPlayerStatusUnknown:
+            break;
+            
+        case AVPlayerStatusReadyToPlay:
+            [[self player] play];
+            break;
+            
+        case AVPlayerStatusFailed:
+            break;
+    }
 }
 
 
@@ -88,27 +81,20 @@
     if (station == [self currentStation])
         return;
     
-    NSLog(@"Tuning to station %@...", [station name]);
+    [self setCurrentStation:station];
     
-    return;
-[self setCurrentStation:station];
+    [[self player] pause];
+    [[self player] removeObserver:self forKeyPath:@"status"];
     
-    NSLog(@"%@", [[self currentStation] streamURL]);
-    
-    player = [[AVPlayer alloc] initWithURL:[[self currentStation] streamURL]];
+    [self setPlayer:[[AVPlayer alloc] initWithURL:[[self currentStation] streamURL]]];
     
     
-    [player addObserver:self 
-                       forKeyPath:@"status"
-                          options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
-                          context:NULL];
+    [[self player] addObserver:self 
+                    forKeyPath:@"status"
+                       options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+                       context:NULL];
 
 
-    
-//    [self stop];
-//    [self setCurrentStation:station];
-//    [self setStreamer:[[AudioStreamer alloc] initWithURL:[[self currentStation] streamURL]]];
-//    [[self streamer] start];
     
     NSUInteger index = 0;
     for (NSString *name in [self radioStations]) {
@@ -134,20 +120,15 @@
 }
 
 - (void)pause {
-    [[self streamer] pause];
+    [[self player] pause];
 }
 
-- (void)stop {
-    [[self streamer] stop];
-    [self setStreamer:nil];
-}
-
-- (void)start {
-    [[self streamer] start];
+- (void)play {
+    [[self player] play];
 }
 
 - (BOOL)isPlaying {
-    return [[self streamer] isPlaying];
+    return [[self player] rate] == 1.0;
 }
 
 

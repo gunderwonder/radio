@@ -46,7 +46,6 @@
 		8AC5D9EE149D169900A63579 /* GWRadioStation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC5D9ED149D169900A63579 /* GWRadioStation.m */; };
 		8AC5D9F4149D214B00A63579 /* GWRadioTuner.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC5D9F3149D214B00A63579 /* GWRadioTuner.m */; };
 		8AC5D9F6149D2EFA00A63579 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AC5D9F5149D2EFA00A63579 /* AVFoundation.framework */; };
-		8AC5D9F9149D317900A63579 /* AudioStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC5D9F8149D317900A63579 /* AudioStreamer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -Wno-extra-tokens -Wno-missing-prototype -Wno-format -Wno-cpp"; }; };
 		8AFB71A1149D44220010E6E1 /* GWRadioStationMetadataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AFB71A0149D44220010E6E1 /* GWRadioStationMetadataCenter.m */; };
 		8AFB71B9149D48C40010E6E1 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AFB71A4149D48C40010E6E1 /* AFHTTPClient.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8AFB71BA149D48C40010E6E1 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AFB71A6149D48C40010E6E1 /* AFHTTPRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -59,7 +58,6 @@
 		8AFB71C1149D48C40010E6E1 /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AFB71B6149D48C40010E6E1 /* AFXMLRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8AFB71C2149D48C40010E6E1 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AFB71B8149D48C40010E6E1 /* UIImageView+AFNetworking.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8AFB71CE149E0FBD0010E6E1 /* GWSpotifySearcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AFB71CD149E0FBD0010E6E1 /* GWSpotifySearcher.m */; };
-		8AFB71D1149E47DB0010E6E1 /* LevelMeterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AFB71D0149E47DB0010E6E1 /* LevelMeterView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8AFB721C149FD9B80010E6E1 /* GWTrackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AFB721B149FD9B80010E6E1 /* GWTrackView.m */; };
 		8AFB721E149FD9CF0010E6E1 /* GWTrackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AFB721D149FD9CF0010E6E1 /* GWTrackView.xib */; };
 /* End PBXBuildFile section */
@@ -130,8 +128,6 @@
 		8AC5D9F2149D214B00A63579 /* GWRadioTuner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWRadioTuner.h; sourceTree = "<group>"; };
 		8AC5D9F3149D214B00A63579 /* GWRadioTuner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GWRadioTuner.m; sourceTree = "<group>"; };
 		8AC5D9F5149D2EFA00A63579 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		8AC5D9F7149D317900A63579 /* AudioStreamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioStreamer.h; path = AudioStreamer/Classes/AudioStreamer.h; sourceTree = "<group>"; };
-		8AC5D9F8149D317900A63579 /* AudioStreamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AudioStreamer.m; path = AudioStreamer/Classes/AudioStreamer.m; sourceTree = "<group>"; };
 		8AFB719F149D44220010E6E1 /* GWRadioStationMetadataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWRadioStationMetadataCenter.h; sourceTree = "<group>"; };
 		8AFB71A0149D44220010E6E1 /* GWRadioStationMetadataCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GWRadioStationMetadataCenter.m; sourceTree = "<group>"; };
 		8AFB71A3149D48C40010E6E1 /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFHTTPClient.h; path = AFNetworking/AFNetworking/AFHTTPClient.h; sourceTree = "<group>"; };
@@ -158,8 +154,6 @@
 		8AFB71B8149D48C40010E6E1 /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+AFNetworking.m"; path = "AFNetworking/AFNetworking/UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
 		8AFB71CC149E0FBD0010E6E1 /* GWSpotifySearcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWSpotifySearcher.h; sourceTree = "<group>"; };
 		8AFB71CD149E0FBD0010E6E1 /* GWSpotifySearcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GWSpotifySearcher.m; sourceTree = "<group>"; };
-		8AFB71CF149E47DB0010E6E1 /* LevelMeterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LevelMeterView.h; path = AudioStreamer/Classes/LevelMeterView.h; sourceTree = "<group>"; };
-		8AFB71D0149E47DB0010E6E1 /* LevelMeterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LevelMeterView.m; path = AudioStreamer/Classes/LevelMeterView.m; sourceTree = "<group>"; };
 		8AFB721A149FD9B70010E6E1 /* GWTrackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWTrackView.h; sourceTree = "<group>"; };
 		8AFB721B149FD9B80010E6E1 /* GWTrackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GWTrackView.m; sourceTree = "<group>"; };
 		8AFB721D149FD9CF0010E6E1 /* GWTrackView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GWTrackView.xib; sourceTree = "<group>"; };
@@ -370,7 +364,6 @@
 				8A2BD81E14B9F86F00A54316 /* OrderedDictionary */,
 				8A2BD81C14B9F78500A54316 /* GWUtilities */,
 				8AFB71C3149D48CA0010E6E1 /* AFNetworking */,
-				8AFB71A2149D48910010E6E1 /* AudioStreamer */,
 			);
 			path = Vendor;
 			sourceTree = "<group>";
@@ -397,17 +390,6 @@
 				8A0C14C214A9F88F00F8D2B3 /* p3_test_4.json */,
 			);
 			path = Data;
-			sourceTree = "<group>";
-		};
-		8AFB71A2149D48910010E6E1 /* AudioStreamer */ = {
-			isa = PBXGroup;
-			children = (
-				8AFB71CF149E47DB0010E6E1 /* LevelMeterView.h */,
-				8AFB71D0149E47DB0010E6E1 /* LevelMeterView.m */,
-				8AC5D9F7149D317900A63579 /* AudioStreamer.h */,
-				8AC5D9F8149D317900A63579 /* AudioStreamer.m */,
-			);
-			name = AudioStreamer;
 			sourceTree = "<group>";
 		};
 		8AFB71C3149D48CA0010E6E1 /* AFNetworking */ = {
@@ -565,7 +547,6 @@
 				8AC5D9BB149D09B800A63579 /* GWViewController.m in Sources */,
 				8AC5D9EE149D169900A63579 /* GWRadioStation.m in Sources */,
 				8AC5D9F4149D214B00A63579 /* GWRadioTuner.m in Sources */,
-				8AC5D9F9149D317900A63579 /* AudioStreamer.m in Sources */,
 				8AFB71A1149D44220010E6E1 /* GWRadioStationMetadataCenter.m in Sources */,
 				8AFB71B9149D48C40010E6E1 /* AFHTTPClient.m in Sources */,
 				8AFB71BA149D48C40010E6E1 /* AFHTTPRequestOperation.m in Sources */,
@@ -578,7 +559,6 @@
 				8AFB71C1149D48C40010E6E1 /* AFXMLRequestOperation.m in Sources */,
 				8AFB71C2149D48C40010E6E1 /* UIImageView+AFNetworking.m in Sources */,
 				8AFB71CE149E0FBD0010E6E1 /* GWSpotifySearcher.m in Sources */,
-				8AFB71D1149E47DB0010E6E1 /* LevelMeterView.m in Sources */,
 				8AFB721C149FD9B80010E6E1 /* GWTrackView.m in Sources */,
 				8A0C14C614AA06F000F8D2B3 /* GWStationTunerView.m in Sources */,
 				8A2BD82114B9F86F00A54316 /* OrderedDictionary.m in Sources */,

@@ -38,7 +38,5 @@
 		<key>metadataURL</key>
 		<string>http://www.nrk.no/api/metadata/onairnow/json/alltidnyheter</string>
 	</dict>
-	<key>P4</key>
-	<dict/>
 </dict>
 </plist>
