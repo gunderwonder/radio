@@ -285,8 +285,8 @@
 
 
 - (void)updateMetadata:(NSDictionary *)metadata {
-    [[self currentShowLabel] setText:[[metadata objectForKey:@"currentShowName"] uppercaseString]];
-    [[self nextShowLabel] setText:[[metadata objectForKey:@"nextShowName"] uppercaseString]];
+    [[self currentShowLabel] setText:[metadata objectForKey:@"currentShowName"]];
+    [[self nextShowLabel] setText:[metadata objectForKey:@"nextShowName"]];
     
     NSDictionary *currentTrack = [metadata objectForKey:@"currentTrack"];
     NSDictionary *previousTrack = [metadata objectForKey:@"previousTrack"];
