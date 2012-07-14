@@ -17,7 +17,7 @@
                               [artistName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], 
                               [trackName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], nil];
     NSString *localURLString = [NSString stringWithFormat:@"spotify:search:%@", searchString, nil];
-    NSString *HTTPURLString = [NSString stringWithFormat:@"http://open.spotify.com/search/%@", searchString, nil];
+   // NSString *HTTPURLString = [NSString stringWithFormat:@"http://open.spotify.com/search/%@", searchString, nil];
     NSLog(@"%@", localURLString);
     
 #if 0
