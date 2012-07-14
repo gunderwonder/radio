@@ -17,7 +17,7 @@
 		8A0C4FAE14BA3EE200D2E864 /* GWFlipSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0C4FAC14BA3EDF00D2E864 /* GWFlipSideViewController.m */; };
 		8A0C4FAF14BA3EE200D2E864 /* GWFlipSideViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A0C4FAD14BA3EDF00D2E864 /* GWFlipSideViewController.xib */; };
 		8A0C4FB114BA3F6500D2E864 /* background_flipside@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A0C4FB014BA3F6500D2E864 /* background_flipside@2x.png */; };
-		8A2BD82114B9F86F00A54316 /* OrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A2BD82014B9F86F00A54316 /* OrderedDictionary.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -Wno-missing-declarations"; }; };
+		8A2BD82114B9F86F00A54316 /* OrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A2BD82014B9F86F00A54316 /* OrderedDictionary.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -Wno-missing-declarations -Wno-missing-prototypes"; }; };
 		8A2BD82414B9F8CA00A54316 /* GWOrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A2BD82314B9F8CA00A54316 /* GWOrderedDictionary.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8A40513414BA064A00C7BB42 /* background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A40512E14BA064A00C7BB42 /* background@2x.png */; };
 		8A40513514BA064A00C7BB42 /* button_airplay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A40512F14BA064A00C7BB42 /* button_airplay@2x.png */; };
