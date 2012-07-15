@@ -8,44 +8,42 @@
 
 #import "GWVolumeUnitMeterView.h"
 
+@interface GWVolumeUnitMeterView()
+
+@property (nonatomic,retain) UIView *needle;
+
+
+@end
+
 @implementation GWVolumeUnitMeterView
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+@synthesize needle=_needle;
+
+- (void)loadSubview {
+    UIImage *backgroundImage = [UIImage imageNamed:@"meter"];
+    UIImageView *backgroundView = [[UIImageView alloc] initWithImage:backgroundImage];
+    
+    [self addSubview:backgroundView];
+    [self setBackgroundColor:[UIColor clearColor]];
+    [backgroundView setCenter:[self center]];
+    CGFloat y = CGRectGetHeight([self frame]) - CGRectGetHeight([backgroundView frame]) - 20.0;
+    [backgroundView setFrame:CGRectWithY([backgroundView frame], y)];
+}
+
+- (id)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
     if (self) {
-        // Custom initialization
+        [self loadSubview];
     }
     return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
-}
-
-#pragma mark - View lifecycle
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self loadSubview];
+    }
+    return self;
 }
 
 @end

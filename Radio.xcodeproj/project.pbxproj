@@ -20,8 +20,9 @@
 		8A2BD82114B9F86F00A54316 /* OrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A2BD82014B9F86F00A54316 /* OrderedDictionary.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -Wno-missing-declarations -Wno-missing-prototypes"; }; };
 		8A2BD82414B9F8CA00A54316 /* GWOrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A2BD82314B9F8CA00A54316 /* GWOrderedDictionary.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8A3DA8A715B18ED40009E3F5 /* GWVolumeUnitMeterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A3DA8A515B18ED40009E3F5 /* GWVolumeUnitMeterView.m */; };
-		8A3DA8A815B18ED40009E3F5 /* GWVolumeUnitMeterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A3DA8A615B18ED40009E3F5 /* GWVolumeUnitMeterView.xib */; };
 		8A3DA8AC15B19CFD0009E3F5 /* AudioStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A3DA8AB15B19CFD0009E3F5 /* AudioStreamer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -Wno-extra-tokens -Wno-missing-prototypes"; }; };
+		8A3DA8AE15B2FAEE0009E3F5 /* meter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A3DA8AD15B2FAEE0009E3F5 /* meter@2x.png */; };
+		8A3DA8B015B2FEFD0009E3F5 /* GWVolumeMeterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A3DA8AF15B2FEFD0009E3F5 /* GWVolumeMeterView.xib */; };
 		8A40513414BA064A00C7BB42 /* background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A40512E14BA064A00C7BB42 /* background@2x.png */; };
 		8A40513514BA064A00C7BB42 /* button_airplay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A40512F14BA064A00C7BB42 /* button_airplay@2x.png */; };
 		8A40513614BA064A00C7BB42 /* button_info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A40513014BA064A00C7BB42 /* button_info@2x.png */; };
@@ -97,9 +98,10 @@
 		8A2BD82514B9FB6E00A54316 /* GWUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GWUtilities.h; path = GWUtilities/GWUtilities.h; sourceTree = "<group>"; };
 		8A3DA8A415B18ED40009E3F5 /* GWVolumeUnitMeterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWVolumeUnitMeterView.h; sourceTree = "<group>"; };
 		8A3DA8A515B18ED40009E3F5 /* GWVolumeUnitMeterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GWVolumeUnitMeterView.m; sourceTree = "<group>"; };
-		8A3DA8A615B18ED40009E3F5 /* GWVolumeUnitMeterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GWVolumeUnitMeterView.xib; sourceTree = "<group>"; };
 		8A3DA8AA15B19CFD0009E3F5 /* AudioStreamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioStreamer.h; sourceTree = "<group>"; };
 		8A3DA8AB15B19CFD0009E3F5 /* AudioStreamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioStreamer.m; sourceTree = "<group>"; };
+		8A3DA8AD15B2FAEE0009E3F5 /* meter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "meter@2x.png"; sourceTree = "<group>"; };
+		8A3DA8AF15B2FEFD0009E3F5 /* GWVolumeMeterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GWVolumeMeterView.xib; sourceTree = "<group>"; };
 		8A40512E14BA064A00C7BB42 /* background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background@2x.png"; sourceTree = "<group>"; };
 		8A40512F14BA064A00C7BB42 /* button_airplay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_airplay@2x.png"; sourceTree = "<group>"; };
 		8A40513014BA064A00C7BB42 /* button_info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_info@2x.png"; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 		8A40512C14BA062E00C7BB42 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				8A3DA8AD15B2FAEE0009E3F5 /* meter@2x.png */,
 				8AA04CEF15B084620015F507 /* dots@2x.png */,
 				8A0C4FB014BA3F6500D2E864 /* background_flipside@2x.png */,
 				8A40512E14BA064A00C7BB42 /* background@2x.png */,
@@ -294,10 +297,10 @@
 		8A40513C14BA110800C7BB42 /* Interfaces */ = {
 			isa = PBXGroup;
 			children = (
+				8A3DA8AF15B2FEFD0009E3F5 /* GWVolumeMeterView.xib */,
 				8AFB721D149FD9CF0010E6E1 /* GWTrackView.xib */,
 				8AC5D9BC149D09B800A63579 /* GWViewController.xib */,
 				8A0C4FAD14BA3EDF00D2E864 /* GWFlipSideViewController.xib */,
-				8A3DA8A615B18ED40009E3F5 /* GWVolumeUnitMeterView.xib */,
 			);
 			name = Interfaces;
 			sourceTree = "<group>";
@@ -533,7 +536,8 @@
 				8A0C4FAF14BA3EE200D2E864 /* GWFlipSideViewController.xib in Resources */,
 				8A0C4FB114BA3F6500D2E864 /* background_flipside@2x.png in Resources */,
 				8AA04CF015B084620015F507 /* dots@2x.png in Resources */,
-				8A3DA8A815B18ED40009E3F5 /* GWVolumeUnitMeterView.xib in Resources */,
+				8A3DA8AE15B2FAEE0009E3F5 /* meter@2x.png in Resources */,
+				8A3DA8B015B2FEFD0009E3F5 /* GWVolumeMeterView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
