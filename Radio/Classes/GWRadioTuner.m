@@ -11,6 +11,7 @@
 
 @interface GWRadioTuner()
 @property (nonatomic, retain) AVPlayer *player;
+@property (nonatomic, retain) AudioStreamer *streamer;
 
 - (void)tuneInStation:(GWRadioStation *)station;
 @end
@@ -18,6 +19,7 @@
 @implementation GWRadioTuner
 
 @synthesize player = _player;
+@synthesize streamer = _streamer;
 @synthesize radioStations = _radioStations;
 @synthesize currentStation = _currentStation;
 
@@ -74,6 +76,16 @@
     }
 }
 
+- (void)start {
+    [self setPlayer:[[AVPlayer alloc] initWithURL:[[self currentStation] streamURL]]];
+    
+    
+    [[self player] addObserver:self 
+                    forKeyPath:@"status"
+                       options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+                       context:NULL];
+}
+
 
 - (void)tuneInStation:(GWRadioStation *)station {
     
@@ -83,18 +95,16 @@
     
     [self setCurrentStation:station];
     
-    [[self player] pause];
-    [[self player] removeObserver:self forKeyPath:@"status"];
+    [[self streamer] stop];
     
-    [self setPlayer:[[AVPlayer alloc] initWithURL:[[self currentStation] streamURL]]];
+    [self setStreamer:[[AudioStreamer alloc] initWithURL:[[self currentStation] streamURL]]];
+    [[self streamer] start];
     
-    
-    [[self player] addObserver:self 
-                    forKeyPath:@"status"
-                       options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
-                       context:NULL];
-
-
+//    [[self player] pause];
+//    [[self player] removeObserver:self forKeyPath:@"status"];
+//    
+//    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+//    [self performSelector:@selector(start) withObject:nil afterDelay:1];
     
     NSUInteger index = 0;
     for (NSString *name in [self radioStations]) {
@@ -120,15 +130,18 @@
 }
 
 - (void)pause {
-    [[self player] pause];
+//    [[self player] pause];
+    [[self streamer] pause];
 }
 
 - (void)play {
-    [[self player] play];
+//    [[self player] play];
+    [[self streamer] start];
 }
 
 - (BOOL)isPlaying {
-    return [[self player] rate] == 1.0;
+    return [[self streamer] isPlaying];
+//    return [[self player] rate] == 1.0;
 }
 
 

@@ -10,12 +10,14 @@
 #import <AVFoundation/AVFoundation.h>
 
 #import "GWRadioStation.h"
+#import "AudioStreamer.h"
 
 @interface GWRadioTuner : NSObject {
 
     NSDictionary *_radioStations;
     GWRadioStation *_currentStation;
-    AVPlayer *player;
+    AVPlayer *_player;
+    AudioStreamer *_streamer;
 }
 
 #pragma mark - Accessors
