@@ -51,6 +51,7 @@
 @synthesize thirdTunerView;
 @synthesize playPauseButton;
 @synthesize flipsideButton;
+@synthesize meterView;
 
 
 - (void)didReceiveMemoryWarning {
@@ -302,6 +303,10 @@
     NSDictionary *currentTrack = [metadata objectForKey:@"currentTrack"];
     NSDictionary *previousTrack = [metadata objectForKey:@"previousTrack"];
     NSDictionary *nextTrack = [metadata objectForKey:@"nextTrack"];
+    
+    BOOL trackScrollViewHidden = currentTrack == nil && previousTrack == nil && nextTrack == nil;
+    [[self trackScrollView] setHidden:trackScrollViewHidden];
+    [[self meterView] setHidden:!trackScrollViewHidden];
         
     [[self lastTrackView] configureWithTrackData:previousTrack];
     [[self currentTrackView] configureWithTrackData:currentTrack];
@@ -349,10 +354,7 @@
     [self setTuner:[[GWRadioTuner alloc] initWithStations:[self stations]]];
     [self layoutTunerView];
     
-//    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapGestureCaptured:)];
-    //Default value for cancelsTouchesInView is YES, which will prevent buttons to be clicked
     [[self trackScrollView] setCanCancelContentTouches:NO]; 
-//    [[self trackScrollView] addGestureRecognizer:singleTap]; 
     
     [[NSNotificationCenter defaultCenter] addObserver:self 
                                              selector:@selector(didReceiveUpdateMetadataNotification:) 

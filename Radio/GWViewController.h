@@ -10,7 +10,7 @@
 #import "GWRadioTuner.h"
 #import "GWTrackView.h"
 #import "GWStationTunerView.h"
-
+#import "GWVolumeUnitMeterView.h"
 
 typedef enum GWTunerScrollViewDirection {
     GWTunerScrollViewDirectionNone,
@@ -41,6 +41,7 @@ typedef enum GWTunerScrollViewDirection {
 @property (weak, nonatomic) IBOutlet GWStationTunerView *firstTunerView;
 @property (weak, nonatomic) IBOutlet GWStationTunerView *secondTunerView;
 @property (weak, nonatomic) IBOutlet GWStationTunerView *thirdTunerView;
+@property (weak, nonatomic) IBOutlet GWVolumeUnitMeterView *meterView;
 @property (weak, nonatomic) IBOutlet UIButton *playPauseButton;
 @property (weak, nonatomic) IBOutlet UIButton *flipsideButton;
 

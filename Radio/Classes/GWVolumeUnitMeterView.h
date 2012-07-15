@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GWVolumeUnitMeterView : UIViewController
+@interface GWVolumeUnitMeterView : UIView {
+    UIView *_needle;
+}
 
 @end
