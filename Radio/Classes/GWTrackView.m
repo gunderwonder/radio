@@ -45,7 +45,7 @@
         [self loadSubview];
         [[[self coverArtView] layer] setMasksToBounds:YES];
         [[[self coverArtView] layer] setBorderColor:[UIColor whiteColor].CGColor];
-        [[[self coverArtView] layer] setBorderWidth:0.5f];
+        [[[self coverArtView] layer] setBorderWidth:1];
     }
     return self;
 }
