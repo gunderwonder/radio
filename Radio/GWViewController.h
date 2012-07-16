@@ -28,6 +28,8 @@ typedef enum GWTunerScrollViewDirection {
     NSInteger lastTunerScrollViewContentOffset;
     
     GWTunerScrollViewDirection tunerScrollViewDirection;
+    
+    NSTimer *_levelMeterUpdateTimer;
 }
 
 @property (weak, nonatomic) IBOutlet UIScrollView *trackScrollView;

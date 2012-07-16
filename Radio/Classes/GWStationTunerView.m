@@ -8,7 +8,9 @@
 
 #import "GWStationTunerView.h"
 #import "GWRadioStation.h"
+#import "GWRadioTuner.h"
 #import "GWGlowingLabel.h"
+
 
 #define GWStationLabelInactiveTextColor UIColorHex(0x828c96)
 #define GWStationLabelActiveTextColor   [UIColor whiteColor]
