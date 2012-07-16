@@ -143,7 +143,7 @@
         
         lower += labelWidth;
     }
-    NSLog(@"Snapping to station with index %d...", i);
+    GWLog(@"Snapping to station with index %d...", i);
     [self snapToStationWithIndex:i scrolling:YES];
     
 }
@@ -315,7 +315,7 @@
     [self layoutTrackViews];
     
     [self updateLockscreenMetadataWithTrackData:[NSDictionary dictionaryWithDictionary:currentTrack]];
-    NSLog(@"Updated metadata.");
+    GWLog(@"Updated metadata.");
 }
 
 
@@ -343,7 +343,7 @@
 - (void)viewDidLoad {
     
 #ifdef DEBUG
-    NSLog(@"Starting in debug mode...");
+    GWDebug(@"Starting in debug mode...");
 #endif
     
     [self setStations:[GWRadioStation loadRadioStations]];    
