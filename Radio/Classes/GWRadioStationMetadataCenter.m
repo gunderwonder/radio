@@ -9,6 +9,12 @@
 #import "GWRadioStationMetadataCenter.h"
 #import "AFNetworking.h"
 
+#ifdef GWDebugRadioMetadata
+    #define GWDebugMetadata GWLog
+#else
+    #define GWDebugMetadata(...)
+#endif
+
 static GWRadioStationMetadataCenter *sharedMetadataCenter;
 
 @interface GWRadioStationMetadataCenter() 
@@ -48,7 +54,7 @@ static GWRadioStationMetadataCenter *sharedMetadataCenter;
 }
      
 - (void)gatherMetadata {
-    NSLog(@"Gathering metadata from '%@'...", [[self metadataURL] absoluteString]);
+    GWLog(@"Gathering metadata from '%@'...", [[self metadataURL] absoluteString]);
     NSURL *url = [self metadataURL];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
@@ -86,7 +92,7 @@ static GWRadioStationMetadataCenter *sharedMetadataCenter;
 - (void)parseMetadata:(NSDictionary *)data {
     
     NSMutableDictionary *metadata = [[NSMutableDictionary alloc] init];
-    NSLog(@"Parsing metadata %@", data);
+    GWDebugMetadata(@"Parsing metadata %@", data);
     
     NSDictionary *program = [data objectForKey:@"program"];
     NSString *showName = [program objectForKey:@"title"];
@@ -129,12 +135,12 @@ static GWRadioStationMetadataCenter *sharedMetadataCenter;
         }
     }
     
-    NSLog(@"Parsed metadata %@", metadata);
+    GWDebugMetadata(@"Parsed metadata %@", metadata);
     
     if ([[self currentMetadata] isEqualToDictionary:metadata])
         return;
     
-    NSLog(@"Posting metadata update notification...");
+    GWDebugMetadata(@"Posting metadata update notification...");
     [[NSNotificationCenter defaultCenter] postNotificationName:GWRadioStationMetadataDidChangeNotification 
                                                         object:self 
                                                       userInfo:metadata];
