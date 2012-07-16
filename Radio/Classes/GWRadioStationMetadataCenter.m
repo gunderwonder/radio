@@ -58,7 +58,7 @@ static GWRadioStationMetadataCenter *sharedMetadataCenter;
     NSURL *url = [self metadataURL];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
-#ifndef DEBUG
+#ifdef TEST
     
     NSString *testDataFileName = nil;
     if ([[[self currentStation] name] isEqualToString:@"NRK P1"])

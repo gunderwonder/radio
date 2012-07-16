@@ -12,4 +12,6 @@
     UIView *_needle;
 }
 
+- (void)updateMeterWithLeftValue:(CGFloat)leftValue rightValue:(CGFloat)rightValue;
+
 @end

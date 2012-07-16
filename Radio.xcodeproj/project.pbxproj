@@ -285,11 +285,11 @@
 				8AFB721B149FD9B80010E6E1 /* GWTrackView.m */,
 				8A0C14C414AA06F000F8D2B3 /* GWStationTunerView.h */,
 				8A0C14C514AA06F000F8D2B3 /* GWStationTunerView.m */,
-				8A0C4FAA14BA352100D2E864 /* Generic */,
 				8AA0EA4314C2F4C30096A6A4 /* GWTrackScollView.h */,
 				8AA0EA4414C2F4C30096A6A4 /* GWTrackScollView.m */,
 				8A3DA8A415B18ED40009E3F5 /* GWVolumeUnitMeterView.h */,
 				8A3DA8A515B18ED40009E3F5 /* GWVolumeUnitMeterView.m */,
+				8A0C4FAA14BA352100D2E864 /* Generic */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -699,6 +699,10 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Radio/Radio-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					DEBUG,
+					"$(inherited)",
+				);
 				INFOPLIST_FILE = "Radio/Radio-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

@@ -25,6 +25,7 @@
 @property (nonatomic, retain) GWRadioTuner *tuner;
 @property (nonatomic, retain) GWOrderedDictionary *stations;
 @property (nonatomic, assign) NSUInteger currentStationIndex;
+@property (nonatomic, retain) NSTimer *levelMeterUpdateTimer;
 
 #pragma mark - Private methods
 - (void)didReceiveUpdateMetadataNotification:(NSNotification *)notification;
@@ -38,6 +39,7 @@
 @synthesize tuner = _tuner;
 @synthesize stations = _stations;
 @synthesize currentStationIndex = _currentStationIndex;
+@synthesize levelMeterUpdateTimer=_levelMeterUpdateTimer;
 @synthesize trackScrollView;
 @synthesize pageControl;
 @synthesize currentShowLabel;
@@ -52,6 +54,7 @@
 @synthesize playPauseButton;
 @synthesize flipsideButton;
 @synthesize meterView;
+
 
 
 - (void)didReceiveMemoryWarning {
@@ -169,28 +172,13 @@
 //     
 }
 
-- (void)updatePlayPauseButtonWithState:(BOOL)isPlaying {
-    if (isPlaying) {
-        [[self playPauseButton] setImage:[UIImage imageNamed:@"button_pause"] forState:UIControlStateNormal];
-    } else {
-        [[self playPauseButton] setImage:[UIImage imageNamed:@"button_play"] forState:UIControlStateNormal];
-    }
-}
-
-- (void)didReceiveTunerNotification:(NSNotification *)notification {
-    [self updatePlayPauseButtonWithState:YES];
-}
 
 - (IBAction)didTouchPlayPause:(UIButton *)sender {
-    if ([self tuner] == nil)
-        return;
-    
-    [self updatePlayPauseButtonWithState:![[self tuner] isPlaying]];
+
     if ([[self tuner] isPlaying])
         [[self tuner] pause];
     else
         [[self tuner] play];
-    
 }
 
 - (IBAction)didTouchFlipsideButton:(id)sender {
@@ -340,6 +328,33 @@
         [self snapToStationWithIndex:stationIndex scrolling:NO];
 }
 
+- (void)updateLevelMeter {
+	[[self meterView] updateMeterWithLeftValue:[[self tuner] averagePowerForChannel:0] 
+                                    rightValue:[[self tuner] averagePowerForChannel:([[self tuner] numberOfChannels] > 1 ? 1 : 0)]];
+}
+
+- (void)startUpdatingLevelMeter {
+    [self setLevelMeterUpdateTimer:[NSTimer scheduledTimerWithTimeInterval:.15 
+                                                                    target:self 
+                                                                  selector:@selector(updateLevelMeter) 
+                                                                  userInfo:nil 
+                                                                   repeats:YES]];
+}
+
+- (void)didReceiveTunerStateChangeNotification:(NSNotification *)notification {
+    GWRadioTuner *tuner = [self tuner];
+    if ([tuner isPlaying]) {
+        [self startUpdatingLevelMeter];
+        [[self playPauseButton] setImage:[UIImage imageNamed:@"button_pause"] forState:UIControlStateNormal];
+    } else if ([tuner isPaused]) {
+        [[self playPauseButton] setImage:[UIImage imageNamed:@"button_play"] forState:UIControlStateNormal];
+    } else if ([tuner cannotPlay]) {
+        [[self playPauseButton] setImage:[UIImage imageNamed:@"button_play"] forState:UIControlStateNormal];
+    } else {
+        
+    }
+}
+
 - (void)viewDidLoad {
     
 #ifdef DEBUG
@@ -360,10 +375,11 @@
                                              selector:@selector(didReceiveUpdateMetadataNotification:) 
                                                  name:GWRadioStationMetadataDidChangeNotification 
                                                object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self 
-                                             selector:@selector(didReceiveTunerNotification:) 
-                                                 name:GWRadioTunerDidTuneInNotification 
-                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didReceiveTunerStateChangeNotification:)
+                                                 name:GWRadioTunerDidChangeStateNotification
+                                               object:[self tuner]];
     
     
     
