@@ -45,7 +45,7 @@
 						<string key="NSFrameSize">{320, 460}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="929865781"/>
+						<reference key="NSNextKeyView" ref="149666526"/>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
@@ -296,6 +296,7 @@
 						<string key="NSFrame">{{212, 389}, {50, 50}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -328,6 +329,54 @@
 							</object>
 						</object>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+					</object>
+					<object class="IBUILabel" id="149666526">
+						<reference key="NSNextResponder" ref="774585933"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{20, 15}, {280, 65}}</string>
+						<reference key="NSSuperview" ref="774585933"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="859461171"/>
+						<bool key="IBUIOpaque">NO</bool>
+						<bool key="IBUIClipsSubviews">YES</bool>
+						<int key="IBUIContentMode">7</int>
+						<bool key="IBUIUserInteractionEnabled">NO</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<string key="IBUIText">RADIO</string>
+						<object class="NSColor" key="IBUITextColor">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MCAwIDAAA</bytes>
+						</object>
+						<nil key="IBUIHighlightedColor"/>
+						<int key="IBUIBaselineAdjustment">1</int>
+						<float key="IBUIMinimumFontSize">10</float>
+						<int key="IBUITextAlignment">1</int>
+						<object class="IBUIFontDescription" key="IBUIFontDescription">
+							<string key="name">Futura-MediumItalic</string>
+							<string key="family">Futura</string>
+							<int key="traits">1</int>
+							<double key="pointSize">24</double>
+						</object>
+						<object class="NSFont" key="IBUIFont">
+							<string key="NSName">Futura-MediumItalic</string>
+							<double key="NSSize">24</double>
+							<int key="NSfFlags">16</int>
+						</object>
+					</object>
+					<object class="IBUIImageView" id="859461171">
+						<reference key="NSNextResponder" ref="774585933"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{84, 27}, {42, 42}}</string>
+						<reference key="NSSuperview" ref="774585933"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="929865781"/>
+						<int key="IBUIContentMode">4</int>
+						<bool key="IBUIUserInteractionEnabled">NO</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<object class="NSCustomResource" key="IBUIImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">indicator_idle</string>
+						</object>
 					</object>
 				</array>
 				<string key="NSFrame">{{0, 20}, {320, 460}}</string>
@@ -470,6 +519,14 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">indicatorView</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="859461171"/>
+					</object>
+					<int key="connectionID">110</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">delegate</string>
 						<reference key="source" ref="34322650"/>
 						<reference key="destination" ref="372490531"/>
@@ -536,6 +593,8 @@
 							<reference ref="453550105"/>
 							<reference ref="34322650"/>
 							<reference ref="840627352"/>
+							<reference ref="149666526"/>
+							<reference ref="859461171"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -543,11 +602,13 @@
 						<int key="objectID">23</int>
 						<reference key="object" ref="293785822"/>
 						<reference key="parent" ref="774585933"/>
+						<string key="objectName">Current show label</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">47</int>
 						<reference key="object" ref="818318184"/>
 						<reference key="parent" ref="774585933"/>
+						<string key="objectName">Next show label</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">73</int>
@@ -558,23 +619,26 @@
 							<reference ref="7945254"/>
 						</array>
 						<reference key="parent" ref="774585933"/>
-						<string key="objectName">Spilles nå</string>
+						<string key="objectName">Now playing</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">71</int>
 						<reference key="object" ref="598752168"/>
 						<array class="NSMutableArray" key="children"/>
 						<reference key="parent" ref="34322650"/>
+						<string key="objectName">Current track view</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">77</int>
 						<reference key="object" ref="7945254"/>
 						<reference key="parent" ref="34322650"/>
+						<string key="objectName">Previous track view</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">81</int>
 						<reference key="object" ref="996699099"/>
 						<reference key="parent" ref="774585933"/>
+						<string key="objectName">Track view page control</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">84</int>
@@ -591,46 +655,66 @@
 						<reference key="object" ref="811603285"/>
 						<array class="NSMutableArray" key="children"/>
 						<reference key="parent" ref="929865781"/>
+						<string key="objectName">Second tuner view</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">93</int>
 						<reference key="object" ref="260206813"/>
 						<reference key="parent" ref="929865781"/>
+						<string key="objectName">Third tuner view</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">95</int>
 						<reference key="object" ref="859346415"/>
 						<reference key="parent" ref="774585933"/>
+						<string key="objectName">Background</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">88</int>
 						<reference key="object" ref="961981005"/>
 						<reference key="parent" ref="929865781"/>
+						<string key="objectName">First tuner view</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">72</int>
 						<reference key="object" ref="325511730"/>
 						<reference key="parent" ref="34322650"/>
+						<string key="objectName">Next track view</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">96</int>
 						<reference key="object" ref="239273470"/>
 						<reference key="parent" ref="774585933"/>
+						<string key="objectName">Airplay</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">97</int>
 						<reference key="object" ref="426527564"/>
 						<reference key="parent" ref="774585933"/>
+						<string key="objectName">Playpase</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">98</int>
 						<reference key="object" ref="453550105"/>
 						<reference key="parent" ref="774585933"/>
+						<string key="objectName">Flipside</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">103</int>
 						<reference key="object" ref="840627352"/>
 						<reference key="parent" ref="774585933"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">105</int>
+						<reference key="object" ref="149666526"/>
+						<reference key="parent" ref="774585933"/>
+						<string key="objectName">Header</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">106</int>
+						<reference key="object" ref="859461171"/>
+						<reference key="parent" ref="774585933"/>
+						<string key="objectName">Indicator</string>
 					</object>
 				</array>
 			</object>
@@ -641,6 +725,8 @@
 				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="103.CustomClassName">GWVolumeUnitMeterView</string>
 				<string key="103.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="105.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="106.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="23.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="47.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -669,7 +755,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">104</int>
+			<int key="maxID">110</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -764,6 +850,7 @@
 						<string key="currentTrackView">GWTrackView</string>
 						<string key="firstTunerView">GWStationTunerView</string>
 						<string key="flipsideButton">UIButton</string>
+						<string key="indicatorView">UIImageView</string>
 						<string key="lastTrackView">GWTrackView</string>
 						<string key="meterView">GWVolumeUnitMeterView</string>
 						<string key="nextShowLabel">UILabel</string>
@@ -791,6 +878,10 @@
 						<object class="IBToOneOutletInfo" key="flipsideButton">
 							<string key="name">flipsideButton</string>
 							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="indicatorView">
+							<string key="name">indicatorView</string>
+							<string key="candidateClassName">UIImageView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="lastTrackView">
 							<string key="name">lastTrackView</string>
@@ -857,6 +948,7 @@
 			<string key="button_airplay@2x.png">{100, 100}</string>
 			<string key="button_info@2x.png">{100, 100}</string>
 			<string key="button_play@2x.png">{100, 100}</string>
+			<string key="indicator_idle">{16, 16}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">933</string>
 	</data>

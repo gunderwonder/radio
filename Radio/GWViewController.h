@@ -46,6 +46,7 @@ typedef enum GWTunerScrollViewDirection {
 @property (weak, nonatomic) IBOutlet GWVolumeUnitMeterView *meterView;
 @property (weak, nonatomic) IBOutlet UIButton *playPauseButton;
 @property (weak, nonatomic) IBOutlet UIButton *flipsideButton;
+@property (weak, nonatomic) IBOutlet UIImageView *indicatorView;
 
 - (IBAction)didSpotifySearch:(id)sender;
 
