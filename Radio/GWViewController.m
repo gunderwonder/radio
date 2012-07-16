@@ -57,6 +57,8 @@
 @synthesize playPauseButton;
 @synthesize flipsideButton;
 @synthesize indicatorView;
+@synthesize airplayButton;
+@synthesize customAirplayButton;
 @synthesize meterView;
 
 
@@ -362,6 +364,24 @@
     }
 }
 
+#define GWAirplayButtonTag 0xDEADBEEF
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([object isKindOfClass:[UIButton class]] && [(UIView *)object tag] == GWAirplayButtonTag) {
+        UIButton *button = (UIButton *)object;
+        
+        if ([[change valueForKey:NSKeyValueChangeNewKey] intValue] == 1) {
+            [button setImage:[UIImage imageNamed:@"button_airplay"] forState:UIControlStateNormal];
+            [button setBounds:CGRectMake(0, 0, 50, 50)];
+            
+            [[self airplayButton] bringSubviewToFront:[self customAirplayButton]];
+        } else {
+            [[self customAirplayButton] bringSubviewToFront:[self airplayButton]];
+        }
+            
+    }
+}
+
 - (void)viewDidLoad {
     
 #ifdef DEBUG
@@ -389,6 +409,19 @@
                                                object:[self tuner]];
     
     
+    [[self airplayButton] setShowsVolumeSlider:NO];
+    [[self airplayButton] setBackgroundColor:[UIColor clearColor]];
+    for (UIView *view in [[self airplayButton] subviews]) {
+        if ([view isKindOfClass:[UIButton class]]) {
+            UIButton *button = (UIButton *)view;
+            [button setTag:GWAirplayButtonTag];
+            
+            [button setImage:[UIImage imageNamed:@"button_airplay"] forState:UIControlStateNormal];
+            [button setBounds:CGRectMake(0, 0, 50, 50)];
+            
+            [button addObserver:self forKeyPath:@"alpha" options:NSKeyValueObservingOptionNew context:nil];
+        }
+    }
     
     [self layoutTrackViews];        
     [super viewDidLoad];
@@ -412,6 +445,8 @@
     [self setPlayPauseButton:nil];
     [self setFlipsideButton:nil];
     [self setIndicatorView:nil];
+    [self setAirplayButton:nil];
+    [self setCustomAirplayButton:nil];
     [super viewDidUnload];
 }
 

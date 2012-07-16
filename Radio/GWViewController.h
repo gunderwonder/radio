@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MediaPlayer/MediaPlayer.h>
+
 #import "GWRadioTuner.h"
 #import "GWTrackView.h"
 #import "GWStationTunerView.h"
@@ -47,6 +49,8 @@ typedef enum GWTunerScrollViewDirection {
 @property (weak, nonatomic) IBOutlet UIButton *playPauseButton;
 @property (weak, nonatomic) IBOutlet UIButton *flipsideButton;
 @property (weak, nonatomic) IBOutlet UIImageView *indicatorView;
+@property (weak, nonatomic) IBOutlet MPVolumeView *airplayButton;
+@property (weak, nonatomic) IBOutlet UIButton *customAirplayButton;
 
 - (IBAction)didSpotifySearch:(id)sender;
 
