@@ -58,10 +58,15 @@
     [self setClipsToBounds:YES];
     
     UIView *needleView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetWidth([self frame]) / 2.0, 0, 3.0, 140.0)];
+    
+    [needleView setBackgroundColor:UIColorHex(0xbcbec0)];
+    
+    [[needleView layer] setMasksToBounds:YES];
+    [[needleView layer] setBorderColor:[UIColor whiteColor].CGColor];
+    [[needleView layer] setBorderWidth:1];
+    
     [self setNeedle:needleView];
     [self addSubview:needleView];
-    
-    [needleView setBackgroundColor:[UIColor whiteColor]];
     
     [needleView setFrame:CGRectWithY([needleView frame], 80.0)];
     [[needleView layer] setAnchorPoint:CGPointMake(0.5, 1)];
