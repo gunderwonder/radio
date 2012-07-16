@@ -17,7 +17,10 @@
 #pragma mark - Contants
 #define GWTunerViewWidth 280.0
 
-
+#define GWIndicatorImageNameIdle @"indicator_idle"
+#define GWIndicatorImageNameBuffrring @"indicator_buffering"
+#define GWIndicatorImageNamePlaying @"indicator_playing"
+#define GWIndicatorImageNameError @"indicator_error"
 
 @interface GWViewController()
 
@@ -53,6 +56,7 @@
 @synthesize thirdTunerView;
 @synthesize playPauseButton;
 @synthesize flipsideButton;
+@synthesize indicatorView;
 @synthesize meterView;
 
 
@@ -346,12 +350,15 @@
     if ([tuner isPlaying]) {
         [self startUpdatingLevelMeter];
         [[self playPauseButton] setImage:[UIImage imageNamed:@"button_pause"] forState:UIControlStateNormal];
+        [[self indicatorView] setImage:[UIImage imageNamed:GWIndicatorImageNamePlaying]];
     } else if ([tuner isPaused]) {
         [[self playPauseButton] setImage:[UIImage imageNamed:@"button_play"] forState:UIControlStateNormal];
+        [[self indicatorView] setImage:[UIImage imageNamed:GWIndicatorImageNameIdle]];
     } else if ([tuner cannotPlay]) {
         [[self playPauseButton] setImage:[UIImage imageNamed:@"button_play"] forState:UIControlStateNormal];
+        [[self indicatorView] setImage:[UIImage imageNamed:GWIndicatorImageNameError]];
     } else {
-        
+        [[self indicatorView] setImage:[UIImage imageNamed:GWIndicatorImageNameBuffrring]];
     }
 }
 
@@ -404,6 +411,7 @@
     [self setThirdTunerView:nil];
     [self setPlayPauseButton:nil];
     [self setFlipsideButton:nil];
+    [self setIndicatorView:nil];
     [super viewDidUnload];
 }
 

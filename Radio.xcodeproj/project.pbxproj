@@ -61,6 +61,10 @@
 		8AC5D9EE149D169900A63579 /* GWRadioStation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC5D9ED149D169900A63579 /* GWRadioStation.m */; };
 		8AC5D9F4149D214B00A63579 /* GWRadioTuner.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC5D9F3149D214B00A63579 /* GWRadioTuner.m */; };
 		8AC5D9F6149D2EFA00A63579 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AC5D9F5149D2EFA00A63579 /* AVFoundation.framework */; };
+		8AF37F3F15B492C700484DC7 /* indicator_buffering@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AF37F3B15B492C700484DC7 /* indicator_buffering@2x.png */; };
+		8AF37F4015B492C700484DC7 /* indicator_error@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AF37F3C15B492C700484DC7 /* indicator_error@2x.png */; };
+		8AF37F4115B492C700484DC7 /* indicator_idle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AF37F3D15B492C700484DC7 /* indicator_idle@2x.png */; };
+		8AF37F4215B492C700484DC7 /* indicator_playing@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AF37F3E15B492C700484DC7 /* indicator_playing@2x.png */; };
 		8AFB71A1149D44220010E6E1 /* GWRadioStationMetadataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AFB71A0149D44220010E6E1 /* GWRadioStationMetadataCenter.m */; };
 		8AFB71CE149E0FBD0010E6E1 /* GWSpotifySearcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AFB71CD149E0FBD0010E6E1 /* GWSpotifySearcher.m */; };
 		8AFB721C149FD9B80010E6E1 /* GWTrackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AFB721B149FD9B80010E6E1 /* GWTrackView.m */; };
@@ -161,6 +165,10 @@
 		8AC5D9F2149D214B00A63579 /* GWRadioTuner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWRadioTuner.h; sourceTree = "<group>"; };
 		8AC5D9F3149D214B00A63579 /* GWRadioTuner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GWRadioTuner.m; sourceTree = "<group>"; };
 		8AC5D9F5149D2EFA00A63579 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		8AF37F3B15B492C700484DC7 /* indicator_buffering@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "indicator_buffering@2x.png"; sourceTree = "<group>"; };
+		8AF37F3C15B492C700484DC7 /* indicator_error@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "indicator_error@2x.png"; sourceTree = "<group>"; };
+		8AF37F3D15B492C700484DC7 /* indicator_idle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "indicator_idle@2x.png"; sourceTree = "<group>"; };
+		8AF37F3E15B492C700484DC7 /* indicator_playing@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "indicator_playing@2x.png"; sourceTree = "<group>"; };
 		8AFB719F149D44220010E6E1 /* GWRadioStationMetadataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWRadioStationMetadataCenter.h; sourceTree = "<group>"; };
 		8AFB71A0149D44220010E6E1 /* GWRadioStationMetadataCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GWRadioStationMetadataCenter.m; sourceTree = "<group>"; };
 		8AFB71CC149E0FBD0010E6E1 /* GWSpotifySearcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWSpotifySearcher.h; sourceTree = "<group>"; };
@@ -250,6 +258,10 @@
 		8A40512C14BA062E00C7BB42 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				8AF37F3B15B492C700484DC7 /* indicator_buffering@2x.png */,
+				8AF37F3C15B492C700484DC7 /* indicator_error@2x.png */,
+				8AF37F3D15B492C700484DC7 /* indicator_idle@2x.png */,
+				8AF37F3E15B492C700484DC7 /* indicator_playing@2x.png */,
 				8A3DA8AD15B2FAEE0009E3F5 /* meter@2x.png */,
 				8AA04CEF15B084620015F507 /* dots@2x.png */,
 				8A0C4FB014BA3F6500D2E864 /* background_flipside@2x.png */,
@@ -538,6 +550,10 @@
 				8AA04CF015B084620015F507 /* dots@2x.png in Resources */,
 				8A3DA8AE15B2FAEE0009E3F5 /* meter@2x.png in Resources */,
 				8A3DA8B015B2FEFD0009E3F5 /* GWVolumeMeterView.xib in Resources */,
+				8AF37F3F15B492C700484DC7 /* indicator_buffering@2x.png in Resources */,
+				8AF37F4015B492C700484DC7 /* indicator_error@2x.png in Resources */,
+				8AF37F4115B492C700484DC7 /* indicator_idle@2x.png in Resources */,
+				8AF37F4215B492C700484DC7 /* indicator_playing@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
