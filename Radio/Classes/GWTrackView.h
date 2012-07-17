@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+#import "GWGlowingLabel.h"
+
 @interface GWTrackView : UIView
 
 @property (weak, nonatomic) IBOutlet UIImageView *coverArtView;
 @property (weak, nonatomic) IBOutlet UILabel *trackLabel;
 @property (weak, nonatomic) IBOutlet UILabel *artistLabel;
-@property (weak, nonatomic) IBOutlet UILabel *label;
+@property (weak, nonatomic) IBOutlet GWGlowingLabel *label;
 @property (weak, nonatomic) IBOutlet UIButton *spotifyButton;
 
 

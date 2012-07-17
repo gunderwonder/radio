@@ -390,8 +390,13 @@
     
     [self setStations:[GWRadioStation loadRadioStations]];    
     [[[self lastTrackView] label] setText:@"FORRIGE LÅT"];
+    [[[self lastTrackView] label] setShouldGlow:YES];
     [[[self currentTrackView] label] setText:@"SPILLES NÅ"];
+    [[[self currentTrackView] label] setShouldGlow:YES];
     [[[self nextTrackView] label] setText:@"NESTE LÅT"];
+    [[[self nextTrackView] label] setShouldGlow:YES];
+    
+    //[[self currentShowLabel] setShouldGlow:YES];
     
     [self setTuner:[[GWRadioTuner alloc] initWithStations:[self stations]]];
     [self layoutTunerView];

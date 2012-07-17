@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <MediaPlayer/MediaPlayer.h>
 
+#import "GWGlowingLabel.h"
 #import "GWRadioTuner.h"
 #import "GWTrackView.h"
 #import "GWStationTunerView.h"
@@ -36,7 +37,7 @@ typedef enum GWTunerScrollViewDirection {
 
 @property (weak, nonatomic) IBOutlet UIScrollView *trackScrollView;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
-@property (weak, nonatomic) IBOutlet UILabel *currentShowLabel;
+@property (weak, nonatomic) IBOutlet GWGlowingLabel *currentShowLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nextShowLabel;
 @property (weak, nonatomic) IBOutlet GWTrackView *currentTrackView;
 @property (weak, nonatomic) IBOutlet GWTrackView *lastTrackView;

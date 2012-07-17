@@ -63,7 +63,6 @@
                        context:(void*)context {
     
     AVPlayerStatus status = [[change objectForKey:NSKeyValueChangeNewKey] integerValue];
-    NSLog(@"status %d", status);
     switch (status) {
         case AVPlayerStatusUnknown:
             break;

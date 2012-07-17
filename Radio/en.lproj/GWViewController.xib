@@ -91,7 +91,11 @@
 						<string key="NSFrame">{{35, 213}, {240, 24}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="840627352"/>
+						<reference key="NSNextKeyView" ref="168639419"/>
+						<object class="NSColor" key="IBUIBackgroundColor" id="723595873">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MCAwAA</bytes>
+						</object>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<int key="IBUIContentMode">7</int>
@@ -100,7 +104,7 @@
 						<string key="IBUIText">NESTE PROGRAM</string>
 						<object class="NSColor" key="IBUITextColor">
 							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC41MDk4MDM5MjE2IDAuNTQ5MDE5NjA3OCAwLjU4ODIzNTI5NDEAA</bytes>
+							<bytes key="NSRGB">MC41MDk4MDM5MjE2IDAuNTQ1MDk4MDM5MiAwLjU4NDMxMzcyNTUAA</bytes>
 						</object>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">1</int>
@@ -128,10 +132,7 @@
 								<reference key="NSSuperview" ref="34322650"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="598752168"/>
-								<object class="NSColor" key="IBUIBackgroundColor" id="723595873">
-									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MCAwAA</bytes>
-								</object>
+								<reference key="IBUIBackgroundColor" ref="723595873"/>
 								<int key="IBUITag">1</int>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 							</object>
@@ -232,7 +233,7 @@
 						<bool key="IBUIShowsHorizontalScrollIndicator">NO</bool>
 						<bool key="IBUIShowsVerticalScrollIndicator">NO</bool>
 					</object>
-					<object class="IBUIView" id="8259426">
+					<object class="IBUIView" id="432113191">
 						<reference key="NSNextResponder" ref="774585933"/>
 						<int key="NSvFlags">274</int>
 						<string key="NSFrame">{{132, 389}, {50, 50}}</string>
@@ -282,7 +283,7 @@
 						<string key="NSFrame">{{51, 389}, {50, 50}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="8259426"/>
+						<reference key="NSNextKeyView" ref="432113191"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -381,6 +382,19 @@
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">indicator_idle</string>
 						</object>
+					</object>
+					<object class="IBUIView" id="168639419">
+						<reference key="NSNextResponder" ref="774585933"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{36, 241}, {248, 1}}</string>
+						<reference key="NSSuperview" ref="774585933"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="840627352"/>
+						<object class="NSColor" key="IBUIBackgroundColor">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MC41MDk4MDM5MjE2IDAuNTQ1MDk4MDM5MiAwLjU4NDMxMzcyNTUAA</bytes>
+						</object>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 				</array>
 				<string key="NSFrame">{{0, 20}, {320, 460}}</string>
@@ -541,6 +555,14 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">airplayButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="432113191"/>
+					</object>
+					<int key="connectionID">114</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">delegate</string>
 						<reference key="source" ref="34322650"/>
 						<reference key="destination" ref="372490531"/>
@@ -609,7 +631,8 @@
 							<reference ref="840627352"/>
 							<reference ref="859461171"/>
 							<reference ref="149666526"/>
-							<reference ref="8259426"/>
+							<reference ref="432113191"/>
+							<reference ref="168639419"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -734,9 +757,15 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">112</int>
-						<reference key="object" ref="8259426"/>
+						<reference key="object" ref="432113191"/>
 						<reference key="parent" ref="774585933"/>
 						<string key="objectName">Airplay</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">113</int>
+						<reference key="object" ref="168639419"/>
+						<reference key="parent" ref="774585933"/>
+						<string key="objectName">Divider</string>
 					</object>
 				</array>
 			</object>
@@ -751,6 +780,8 @@
 				<string key="106.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="112.CustomClassName">MPVolumeView</string>
 				<string key="112.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="113.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="23.CustomClassName">GWGlowingLabel</string>
 				<string key="23.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="47.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -779,10 +810,18 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">112</int>
+			<int key="maxID">114</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">GWGlowingLabel</string>
+					<string key="superclassName">UILabel</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/GWGlowingLabel.h</string>
+					</object>
+				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">GWStationTunerView</string>
 					<string key="superclassName">UIView</string>
@@ -816,7 +855,7 @@
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="artistLabel">UILabel</string>
 						<string key="coverArtView">UIImageView</string>
-						<string key="label">UILabel</string>
+						<string key="label">GWGlowingLabel</string>
 						<string key="spotifyButton">UIButton</string>
 						<string key="trackLabel">UILabel</string>
 					</dictionary>
@@ -831,7 +870,7 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="label">
 							<string key="name">label</string>
-							<string key="candidateClassName">UILabel</string>
+							<string key="candidateClassName">GWGlowingLabel</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="spotifyButton">
 							<string key="name">spotifyButton</string>
@@ -871,7 +910,7 @@
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="airplayButton">MPVolumeView</string>
-						<string key="currentShowLabel">UILabel</string>
+						<string key="currentShowLabel">GWGlowingLabel</string>
 						<string key="currentTrackView">GWTrackView</string>
 						<string key="customAirplayButton">UIButton</string>
 						<string key="firstTunerView">GWStationTunerView</string>
@@ -895,7 +934,7 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="currentShowLabel">
 							<string key="name">currentShowLabel</string>
-							<string key="candidateClassName">UILabel</string>
+							<string key="candidateClassName">GWGlowingLabel</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="currentTrackView">
 							<string key="name">currentTrackView</string>

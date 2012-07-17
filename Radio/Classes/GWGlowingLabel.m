@@ -27,7 +27,7 @@
     
     CGColorSpaceRef myColorSpace = CGColorSpaceCreateDeviceRGB();
     CGColorRef myColor = CGColorCreate(myColorSpace, myColorValues);
-    CGContextSetShadowWithColor (myContext, myShadowOffset, 5, myColor);
+    CGContextSetShadowWithColor (myContext, myShadowOffset, 10, myColor);
     
     [super drawTextInRect:rect];
     

@@ -9,6 +9,8 @@
 #import "GWRadioStationMetadataCenter.h"
 #import "AFNetworking.h"
 
+#define GWDebugRadioMetadata
+
 #ifdef GWDebugRadioMetadata
     #define GWDebugMetadata GWLog
 #else
@@ -20,7 +22,8 @@ static GWRadioStationMetadataCenter *sharedMetadataCenter;
 @interface GWRadioStationMetadataCenter() 
 @property (nonatomic, retain) NSTimer *pollTimer;
 @property (nonatomic, retain) GWRadioStation *currentStation;
-@property (nonatomic, retain) NSDictionary *currentMetadata;
+@property (nonatomic, copy) NSDictionary *currentMetadata;
+@property (nonatomic, copy) NSDateFormatter *dateFormatter;
 - (void)gatherMetadata;
 - (void)parseMetadata:(NSDictionary *)metadata;
 @end
@@ -31,6 +34,10 @@ static GWRadioStationMetadataCenter *sharedMetadataCenter;
 @synthesize pollTimer = _pollTimer;
 @synthesize currentStation = _currentStation;
 @synthesize currentMetadata = _currentMetadata;
+@synthesize dateFormatter = _dateFormatter;
+
+#define GWNRKTimeZoneAbbreviation   @"CET"
+#define GWNRKDateFormatString       @"yyyy-MM-dd'T'HH:mm:ss"
 
 + (GWRadioStationMetadataCenter *)sharedCenter {
     static BOOL initialized = NO;
@@ -39,6 +46,16 @@ static GWRadioStationMetadataCenter *sharedMetadataCenter;
         sharedMetadataCenter = [[GWRadioStationMetadataCenter alloc] init];
     }
     return sharedMetadataCenter;
+}
+
+- (id)init {
+    if (self = [super init]) {
+        [self setDateFormatter:[[NSDateFormatter alloc] init]];
+        
+        [[self dateFormatter] setTimeZone:[NSTimeZone timeZoneWithAbbreviation:GWNRKTimeZoneAbbreviation]];
+        [[self dateFormatter] setDateFormat:GWNRKDateFormatString];
+    }
+    return self;
 }
 
 - (void)startGatheringMetadataForStation:(GWRadioStation *)station {
@@ -89,6 +106,15 @@ static GWRadioStationMetadataCenter *sharedMetadataCenter;
     [[self pollTimer] invalidate];
 }
 
+- (NSDate *)dateFromString:(NSString *)string {
+    if (string == nil)
+        return nil;
+        
+    return [[self dateFormatter] dateFromString:string];
+    
+    return nil;
+}
+
 - (void)parseMetadata:(NSDictionary *)data {
     
     NSMutableDictionary *metadata = [[NSMutableDictionary alloc] init];
@@ -98,6 +124,10 @@ static GWRadioStationMetadataCenter *sharedMetadataCenter;
     NSString *showName = [program objectForKey:@"title"];
     if (showName != nil)
         [metadata setObject:showName forKey:@"currentShowName"];
+    
+    NSString *showStartDateString = [data objectForKey:@"date"];
+    if (showStartDateString != nil)
+        [metadata setObject:[self dateFromString:showStartDateString] forKey:@"currentShowStartTime"];    
     
     NSArray *elements = [program objectForKey:@"elements"];
     if ([elements count]) {
@@ -129,6 +159,10 @@ static GWRadioStationMetadataCenter *sharedMetadataCenter;
             } else if ([[element objectForKey:@"runorder"] isEqualToString:@"nextprogram"]) {
                 NSDictionary *nextProgram = [element objectForKey:@"program"];
                 [metadata setObject:[nextProgram objectForKey:@"title"] forKey:@"nextShowName"];
+                
+                NSString *nextShowStartDateString = [element objectForKey:@"date"];
+                if (nextShowStartDateString != nil)
+                    [metadata setObject:[self dateFromString:nextShowStartDateString] forKey:@"nextShowStartTime"];    
             }
             
             
