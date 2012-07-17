@@ -161,7 +161,7 @@
 
 - (void)play {
 //    [[self player] play];
-    [[self streamer] start];
+    [[self streamer] play];
 }
 
 - (BOOL)isPlaying {
