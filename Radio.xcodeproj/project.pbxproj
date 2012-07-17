@@ -61,6 +61,7 @@
 		8AC5D9EE149D169900A63579 /* GWRadioStation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC5D9ED149D169900A63579 /* GWRadioStation.m */; };
 		8AC5D9F4149D214B00A63579 /* GWRadioTuner.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC5D9F3149D214B00A63579 /* GWRadioTuner.m */; };
 		8AC5D9F6149D2EFA00A63579 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AC5D9F5149D2EFA00A63579 /* AVFoundation.framework */; };
+		8AD8C2B815B59D36004547A8 /* GWAudioStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD8C2B715B59D36004547A8 /* GWAudioStreamer.m */; };
 		8AF37F3F15B492C700484DC7 /* indicator_buffering@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AF37F3B15B492C700484DC7 /* indicator_buffering@2x.png */; };
 		8AF37F4015B492C700484DC7 /* indicator_error@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AF37F3C15B492C700484DC7 /* indicator_error@2x.png */; };
 		8AF37F4115B492C700484DC7 /* indicator_idle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AF37F3D15B492C700484DC7 /* indicator_idle@2x.png */; };
@@ -165,6 +166,8 @@
 		8AC5D9F2149D214B00A63579 /* GWRadioTuner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWRadioTuner.h; sourceTree = "<group>"; };
 		8AC5D9F3149D214B00A63579 /* GWRadioTuner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GWRadioTuner.m; sourceTree = "<group>"; };
 		8AC5D9F5149D2EFA00A63579 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		8AD8C2B615B59D36004547A8 /* GWAudioStreamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWAudioStreamer.h; sourceTree = "<group>"; };
+		8AD8C2B715B59D36004547A8 /* GWAudioStreamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GWAudioStreamer.m; sourceTree = "<group>"; };
 		8AF37F3B15B492C700484DC7 /* indicator_buffering@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "indicator_buffering@2x.png"; sourceTree = "<group>"; };
 		8AF37F3C15B492C700484DC7 /* indicator_error@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "indicator_error@2x.png"; sourceTree = "<group>"; };
 		8AF37F3D15B492C700484DC7 /* indicator_idle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "indicator_idle@2x.png"; sourceTree = "<group>"; };
@@ -252,7 +255,7 @@
 				8A3DA8AB15B19CFD0009E3F5 /* AudioStreamer.m */,
 			);
 			name = AudioStreamer;
-			path = AudioStreamer/Classes;
+			path = AudioStreamer/AudioStreamer;
 			sourceTree = "<group>";
 		};
 		8A40512C14BA062E00C7BB42 /* Assets */ = {
@@ -286,6 +289,8 @@
 				8AFB71A0149D44220010E6E1 /* GWRadioStationMetadataCenter.m */,
 				8AFB71CC149E0FBD0010E6E1 /* GWSpotifySearcher.h */,
 				8AFB71CD149E0FBD0010E6E1 /* GWSpotifySearcher.m */,
+				8AD8C2B615B59D36004547A8 /* GWAudioStreamer.h */,
+				8AD8C2B715B59D36004547A8 /* GWAudioStreamer.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -614,6 +619,7 @@
 				8A7871F915B0F20700882FB3 /* UIImageView+AFNetworking.m in Sources */,
 				8A3DA8A715B18ED40009E3F5 /* GWVolumeUnitMeterView.m in Sources */,
 				8A3DA8AC15B19CFD0009E3F5 /* AudioStreamer.m in Sources */,
+				8AD8C2B815B59D36004547A8 /* GWAudioStreamer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

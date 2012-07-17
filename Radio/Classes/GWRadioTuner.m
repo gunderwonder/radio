@@ -11,7 +11,7 @@
 
 @interface GWRadioTuner()
 @property (nonatomic, retain) AVPlayer *player;
-@property (nonatomic, retain) AudioStreamer *streamer;
+@property (nonatomic, retain) GWAudioStreamer *streamer;
 
 - (void)tuneInStation:(GWRadioStation *)station;
 @end
@@ -96,7 +96,7 @@
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(start) object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:ASStatusChangedNotification object:[self streamer]];
     
-    [self setStreamer:[[AudioStreamer alloc] initWithURL:[[self currentStation] streamURL]]];
+    [self setStreamer:[GWAudioStreamer streamWithURL:[[self currentStation] streamURL]]];
     [[self streamer] start];
     
     [[NSNotificationCenter defaultCenter] addObserver:self

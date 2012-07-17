@@ -10,7 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 
 #import "GWRadioStation.h"
-#import "AudioStreamer.h"
+#import "GWAudioStreamer.h"
 
 #define GWRadioTunerDidChangeStateNotification @"GWRadioTunerDidChangeStateNotification"
 
@@ -19,7 +19,7 @@
     NSDictionary *_radioStations;
     GWRadioStation *_currentStation;
     AVPlayer *_player;
-    AudioStreamer *_streamer;
+    GWAudioStreamer *_streamer;
     
     NSUInteger _currentStationIndex;
 }
