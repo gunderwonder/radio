@@ -3,4 +3,4 @@
 	url = https://github.com/AFNetworking/AFNetworking.git
 [submodule "Radio/Vendor/AudioStreamer"]
 	path = Radio/Vendor/AudioStreamer
-	url = https://github.com/alexcrichton/AudioStreamer.git
+	url = https://github.com/gunderwonder/AudioStreamer.git
