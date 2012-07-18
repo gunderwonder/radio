@@ -55,8 +55,6 @@ typedef enum GWTunerScrollViewDirection {
 @property (weak, nonatomic) IBOutlet UIButton *customAirplayButton;
 @property (weak, nonatomic) IBOutlet UIView *dividerView;
 
-- (IBAction)didSpotifySearch:(id)sender;
-
 - (IBAction)didTouchPlayPause:(UIButton *)sender;
 - (IBAction)didTouchFlipsideButton:(id)sender;
 

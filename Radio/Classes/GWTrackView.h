@@ -10,6 +10,10 @@
 
 #import "GWGlowingLabel.h"
 
+#define GWTrackViewTagPrevious  5000
+#define GWTrackViewTagCurrent   6000
+#define GWTrackViewTagNext      7000
+
 @interface GWTrackView : UIView
 
 @property (weak, nonatomic) IBOutlet UIImageView *coverArtView;

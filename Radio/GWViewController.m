@@ -15,12 +15,14 @@
 #import "GWTrackScollView.h"
 
 #pragma mark - Contants
-#define GWTunerViewWidth 280.0
+#define GWTunerViewWidth                280.0
 
-#define GWIndicatorImageNameIdle @"indicator_idle"
-#define GWIndicatorImageNameBuffrring @"indicator_buffering"
-#define GWIndicatorImageNamePlaying @"indicator_playing"
-#define GWIndicatorImageNameError @"indicator_error"
+#define GWIndicatorImageNameIdle        @"indicator_idle"
+#define GWIndicatorImageNameBuffrring   @"indicator_buffering"
+#define GWIndicatorImageNamePlaying     @"indicator_playing"
+#define GWIndicatorImageNameError       @"indicator_error"
+
+#define GWAirplayButtonTag              0xDEADBEEF
 
 @interface GWViewController()
 
@@ -32,9 +34,15 @@
 
 @property (nonatomic, retain) UIView *progressView;
 
-#pragma mark - Private methods
+#pragma mark - Private method declarations
 - (void)didReceiveUpdateMetadataNotification:(NSNotification *)notification;
 - (void)updateMetadata:(NSDictionary *)metadata;
+
+
+- (void)trackScrollViewDidScroll:(UIScrollView *)sender;
+- (void)tunerScrollViewDidScroll:(UIScrollView *)sender;
+- (void)snapToStationWithIndex:(NSUInteger)index scrolling:(BOOL)scrolling;
+- (void)snapToStationWithContentOffset:(CGFloat)contentOffset;
 @end
 
 
@@ -47,7 +55,7 @@
 @synthesize levelMeterUpdateTimer=_levelMeterUpdateTimer;
 @synthesize progressView = _progressView;
 
-
+#pragma mark - Public IB accessors
 @synthesize trackScrollView;
 @synthesize pageControl;
 @synthesize currentShowLabel;
@@ -67,44 +75,84 @@
 @synthesize dividerView;
 @synthesize meterView;
 
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
 
 #pragma mark - UIScrollViewDelegate
+
 - (void)scrollViewDidScroll:(UIScrollView *)sender {
     
     // track list scolling 
-    if (sender == [self trackScrollView]) {
-        if ([sender contentOffset].x < GWTrackViewWidth) {
-            [[self pageControl] setCurrentPage:0];
-        } else if ([sender contentOffset].x >= GWTrackViewWidth && [sender contentOffset].x < GWTrackViewWidth * 2) {
-            [[self pageControl] setCurrentPage:1];
-        } else if ([sender contentOffset].x >= GWTrackViewWidth * 2) {
-            [[self pageControl] setCurrentPage:2];
-        }
-    }
+    if (sender == [self trackScrollView])
+        [self trackScrollViewDidScroll:sender];
     
     // tuner scrolling: remember last scroll offset
-    if (sender == [self tunerScrollView]) {
-        
-        CGFloat contentOffset = [[self tunerScrollView] contentOffset].x;
-        if (contentOffset < GWTunerScrollBias + (GWTunerViewWidth / 2))
-            [[self tunerScrollView] setContentOffset:CGPointMake(contentOffset + GWTunerViewWidth, 0)];
-        else if (contentOffset > GWTunerScrollBias + (GWTunerViewWidth * 2 - (GWTunerViewWidth / 2)))
-            [[self tunerScrollView] setContentOffset:CGPointMake(contentOffset - GWTunerViewWidth, 0)];
-        
-        if (lastTunerScrollViewContentOffset > contentOffset - GWTunerScrollBias)
-            tunerScrollViewDirection = GWTunerScrollViewDirectionRight;
-        else if (lastTunerScrollViewContentOffset < contentOffset - GWTunerScrollBias) 
-            tunerScrollViewDirection = GWTunerScrollViewDirectionLeft;
-        
-        lastTunerScrollViewContentOffset = contentOffset - GWTunerScrollBias;
-    }
+    if (sender == [self tunerScrollView])
+        [self tunerScrollViewDidScroll:sender];
     
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    
+    if (scrollView == [self tunerScrollView]) {
+        if (decelerate)
+            return;
+        [self snapToStationWithContentOffset:[scrollView contentOffset].x];
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    if (scrollView == [self tunerScrollView]) {
+        [self snapToStationWithContentOffset:[scrollView contentOffset].x];
+    }
+}
+
+#pragma mark - Track view handling
+- (void)trackScrollViewDidScroll:(UIScrollView *)sender {
+    if ([sender contentOffset].x < GWTrackViewWidth) {
+        [[self pageControl] setCurrentPage:0];
+    } else if ([sender contentOffset].x >= GWTrackViewWidth && [sender contentOffset].x < GWTrackViewWidth * 2) {
+        [[self pageControl] setCurrentPage:1];
+    } else if ([sender contentOffset].x >= GWTrackViewWidth * 2) {
+        [[self pageControl] setCurrentPage:2];
+    }
+}
+
+- (void)trackScrollView:(GWTrackScollView *)scrollView didDetectSingleTouch:(UITouch *)touch {
+    CGFloat leftOffset = [touch locationInView:scrollView].x;
+    CGFloat contentLeftOffset = leftOffset - [scrollView contentOffset].x;
+    
+    CGFloat visibleStationsCount = 3.0f;
+    CGFloat stationSelectionWidth = [scrollView frame].size.width / visibleStationsCount;
+    
+    NSInteger stationIndex = -1;
+    if (contentLeftOffset < stationSelectionWidth)
+        stationIndex = ([self currentStationIndex] - 1) % [[self stations] count];
+    else if (contentLeftOffset > stationSelectionWidth)
+        stationIndex = ([self currentStationIndex] + 1) % [[self stations] count];
+    
+    //NSLog(@"%f %f", contentLeftOffset, stationSelectionWidth * visibleStationsCount - 1);
+    
+    if (stationIndex != -1)
+        [self snapToStationWithIndex:stationIndex scrolling:NO];
+}
+
+#pragma mark - Tuner view handling
+- (void)tunerScrollViewDidScroll:(UIScrollView *)sender {
+    CGFloat contentOffset = [[self tunerScrollView] contentOffset].x;
+    if (contentOffset < GWTunerScrollBias + (GWTunerViewWidth / 2))
+        [[self tunerScrollView] setContentOffset:CGPointMake(contentOffset + GWTunerViewWidth, 0)];
+    else if (contentOffset > GWTunerScrollBias + (GWTunerViewWidth * 2 - (GWTunerViewWidth / 2)))
+        [[self tunerScrollView] setContentOffset:CGPointMake(contentOffset - GWTunerViewWidth, 0)];
+    
+    if (lastTunerScrollViewContentOffset > contentOffset - GWTunerScrollBias)
+        tunerScrollViewDirection = GWTunerScrollViewDirectionRight;
+    else if (lastTunerScrollViewContentOffset < contentOffset - GWTunerScrollBias) 
+        tunerScrollViewDirection = GWTunerScrollViewDirectionLeft;
+    
+    lastTunerScrollViewContentOffset = contentOffset - GWTunerScrollBias;
 }
 
 - (void)snapToStationWithIndex:(NSUInteger)index scrolling:(BOOL)scrolling {
@@ -164,27 +212,7 @@
 }
 
 
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    
-    if (scrollView == [self tunerScrollView]) {
-        if (decelerate)
-            return;
-        [self snapToStationWithContentOffset:[scrollView contentOffset].x];
-    }
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    if (scrollView == [self tunerScrollView]) {
-        [self snapToStationWithContentOffset:[scrollView contentOffset].x];
-    }
-}
-
-- (IBAction)didSpotifySearch:(id)sender {
-//     
-}
-
-
+#pragma mark - IB action – buttons
 - (IBAction)didTouchPlayPause:(UIButton *)sender {
 
     if ([[self tuner] isPlaying])
@@ -199,13 +227,13 @@
     [flipsideViewController setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
     
     [self presentModalViewController:flipsideViewController animated:YES];
-    
 }
 
 - (void)didReceiveUpdateMetadataNotification:(NSNotification *)notification {
     [self updateMetadata:[notification userInfo]];
 }
 
+#pragma mark - View layout
 - (void)layoutTrackViews {
     [[self trackScrollView] setAlpha:0.0];
     
@@ -269,25 +297,11 @@
     
     [[self tunerScrollView] setContentSize:CGSizeMake(GWTunerScrollBias * 2 + GWTunerViewWidth * 3, 
                                                       [[self tunerScrollView] bounds].size.height)];
-    [[self tunerScrollView] setContentOffset:CGPointMake(GWTunerScrollBias + GWTunerViewWidth + GWTunerViewWidth / 2.0 + (GWTunerViewWidth / [[self stations] count]) / 2.0, 0)];
+    [[self tunerScrollView] setContentOffset:
+        CGPointMake(GWTunerScrollBias + GWTunerViewWidth + GWTunerViewWidth / 2.0 + 
+                    (GWTunerViewWidth / [[self stations] count]) / 2.0, 0)];
     
     lastTunerScrollViewContentOffset = [[self tunerScrollView] contentOffset].x;
-}
-
-- (void)updateLockscreenMetadataWithTrackData:(NSMutableDictionary *)trackData {
-    NSMutableDictionary *metadata = [[NSMutableDictionary alloc] init];
-    
-    NSString *artist = [trackData objectForKey:@"artist"];
-    artist = (artist == nil) ? @"" : artist;
-    [metadata setObject:artist forKey:MPMediaItemPropertyArtist];
-    
-    
-    NSString *title = [trackData objectForKey:@"track"];
-    title = (title == nil) ? @"" : title;
-    [metadata setObject:title forKey:MPMediaItemPropertyTitle];
-    
-    [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:nil];
-    [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:metadata];
 }
 
 - (void)layoutTimeProgressViewWithMetadata:(NSDictionary *)metadata {
@@ -302,7 +316,7 @@
                              [[self progressView] setFrame:CGRectWithWidth([[self progressView] frame], 0)];
                          }
                          completion:^(BOOL finished){ }];
-                             
+        
         
         
         return; // TODO: handle this
@@ -323,37 +337,46 @@
                      }
                      completion:^(BOOL finished){ 
                          
-                             [UIView animateWithDuration:[endTime timeIntervalSinceNow] animations:^() {
-                                 [[self progressView] setFrame:CGRectWithWidth([[self progressView] frame], 
-                                                                               CGRectGetWidth([[self dividerView] frame]))];
-                             }];
+                         [UIView animateWithDuration:[endTime timeIntervalSinceNow] animations:^() {
+                             [[self progressView] setFrame:CGRectWithWidth([[self progressView] frame], 
+                                                                           CGRectGetWidth([[self dividerView] frame]))];
+                         }];
                          
                      }];
     
     
-//    [[[self progressView] layer] removeAllAnimations];
-//    [UIView animateWithDuration:0.0
-//                          delay:0.0
-//                        options:UIViewAnimationOptionBeginFromCurrentState
-//                     animations:^{
-//                         [[self progressView] setFrame:CGRectWithWidth([[self progressView] frame], 0)];
-//                     }
-//                     completion:^(BOOL finished){ 
-//                     
-//                         [UIView animateWithDuration:.5 animations:^() {
-//                             [[self progressView] setFrame:CGRectWithWidth([[self progressView] frame], progressViewWidth)];
-//                         } completion: ^(BOOL completed) {
-//                             
-//                             [UIView animateWithDuration:[endTime timeIntervalSinceNow] animations:^() {
-//                                 [[self progressView] setFrame:CGRectWithWidth([[self progressView] frame], 
-//                                                                               CGRectGetWidth([[self dividerView] frame]))];
-//                             }];
-//                         }];
-//                     
-//                     }];
-    
-    
 }
+
+#pragma mark - Metadata UI
+- (void)updateLockscreenMetadataWithTrackData:(NSMutableDictionary *)trackData {
+    NSMutableDictionary *metadata = [[NSMutableDictionary alloc] init];
+    
+    NSString *artist = [trackData objectForKey:@"artist"];
+    artist = (artist == nil) ? @"" : artist;
+    [metadata setObject:artist forKey:MPMediaItemPropertyArtist];
+    
+    
+    NSString *title = [trackData objectForKey:@"track"];
+    title = (title == nil) ? @"" : title;
+    [metadata setObject:title forKey:MPMediaItemPropertyTitle];
+    
+    [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:nil];
+    [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:metadata];
+}
+
+- (void)updateLockscreenMetadataWithImage:(UIImage *)image {
+    NSMutableDictionary *currentMetadata = [[[MPNowPlayingInfoCenter defaultCenter] nowPlayingInfo] mutableCopy];
+    
+    if (image == nil)
+        return;
+    
+    MPMediaItemArtwork *artwork = [[MPMediaItemArtwork alloc] initWithImage:image];
+    [currentMetadata setObject:artwork forKey:MPMediaItemPropertyArtwork];
+    
+    [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:nil];
+    [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:currentMetadata];
+}
+
 
 - (void)updateMetadata:(NSDictionary *)metadata {
     [[self currentShowLabel] setText:[metadata objectForKey:@"currentShowName"]];
@@ -387,33 +410,28 @@
     GWLog(@"Updated metadata.");
 }
 
-
-#pragma mark - View lifecycle
-
-- (void)trackScrollView:(GWTrackScollView *)scrollView didDetectSingleTouch:(UITouch *)touch {
-    CGFloat leftOffset = [touch locationInView:scrollView].x;
-    CGFloat contentLeftOffset = leftOffset - [scrollView contentOffset].x;
-    
-    CGFloat visibleStationsCount = 3.0f;
-    CGFloat stationSelectionWidth = [scrollView frame].size.width / visibleStationsCount;
-    
-    NSInteger stationIndex = -1;
-    if (contentLeftOffset < stationSelectionWidth)
-        stationIndex = ([self currentStationIndex] - 1) % [[self stations] count];
-    else if (contentLeftOffset > stationSelectionWidth)
-        stationIndex = ([self currentStationIndex] + 1) % [[self stations] count];
-        
-    //NSLog(@"%f %f", contentLeftOffset, stationSelectionWidth * visibleStationsCount - 1);
-    
-    if (stationIndex != -1)
-        [self snapToStationWithIndex:stationIndex scrolling:NO];
-}
-
 - (void)updateLevelMeter {
 	[[self meterView] updateMeterWithLeftValue:[[self tuner] averagePowerForChannel:0] 
                                     rightValue:[[self tuner] averagePowerForChannel:([[self tuner] numberOfChannels] > 1 ? 1 : 0)]];
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([object isKindOfClass:[UIButton class]] && [(UIView *)object tag] == GWAirplayButtonTag) {
+        UIButton *button = (UIButton *)object;
+        
+        if ([[change valueForKey:NSKeyValueChangeNewKey] intValue] == 1) {
+            [button setImage:[UIImage imageNamed:@"button_airplay"] forState:UIControlStateNormal];
+            [button setBounds:CGRectMake(0, 0, 50, 50)];
+            
+            [[self airplayButton] bringSubviewToFront:[self customAirplayButton]];
+        } else {
+            [[self customAirplayButton] bringSubviewToFront:[self airplayButton]];
+        }
+        
+    }
+}
+
+#pragma mark - Timers and notification handlers
 - (void)startUpdatingLevelMeter {
     [self setLevelMeterUpdateTimer:[NSTimer scheduledTimerWithTimeInterval:.15 
                                                                     target:self 
@@ -439,23 +457,13 @@
     }
 }
 
-#define GWAirplayButtonTag 0xDEADBEEF
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([object isKindOfClass:[UIButton class]] && [(UIView *)object tag] == GWAirplayButtonTag) {
-        UIButton *button = (UIButton *)object;
-        
-        if ([[change valueForKey:NSKeyValueChangeNewKey] intValue] == 1) {
-            [button setImage:[UIImage imageNamed:@"button_airplay"] forState:UIControlStateNormal];
-            [button setBounds:CGRectMake(0, 0, 50, 50)];
-            
-            [[self airplayButton] bringSubviewToFront:[self customAirplayButton]];
-        } else {
-            [[self customAirplayButton] bringSubviewToFront:[self airplayButton]];
-        }
-            
-    }
+- (void)didReceiveTrackImageDidLoadNotification:(NSNotification *)notification {
+    UIImage *image = [notification object];
+    [self updateLockscreenMetadataWithImage:image];
+    
 }
+
+#pragma mark - View lifecycle
 
 - (void)viewDidLoad {
     
@@ -464,14 +472,20 @@
 #endif
     
     [self setStations:[GWRadioStation loadRadioStations]];    
+    
+    // TODO: move this configuration elsewhere
     [[[self lastTrackView] label] setText:@"FORRIGE LÅT"];
     [[[self lastTrackView] label] setShouldGlow:YES];
+    [[self lastTrackView] setTag:GWTrackViewTagPrevious];
+    
     [[[self currentTrackView] label] setText:@"SPILLES NÅ"];
     [[[self currentTrackView] label] setShouldGlow:YES];
+    [[self lastTrackView] setTag:GWTrackViewTagCurrent];
+    
     [[[self nextTrackView] label] setText:@"NESTE LÅT"];
     [[[self nextTrackView] label] setShouldGlow:YES];
+    [[self lastTrackView] setTag:GWTrackViewTagNext];
     
-    //[[self currentShowLabel] setShouldGlow:YES];
     
     [self setTuner:[[GWRadioTuner alloc] initWithStations:[self stations]]];
     [self layoutTunerView];
@@ -488,6 +502,11 @@
                                                  name:GWRadioTunerDidChangeStateNotification
                                                object:[self tuner]];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didReceiveTrackImageDidLoadNotification:)
+                                                 name:@"GWCurrentTrackImageDidLoadNotification"
+                                               object:nil];
+    
     
     [[self airplayButton] setShowsVolumeSlider:NO];
     [[self airplayButton] setBackgroundColor:[UIColor clearColor]];
@@ -502,10 +521,6 @@
             [button addObserver:self forKeyPath:@"alpha" options:NSKeyValueObservingOptionNew context:nil];
         }
     }
-    
-//    [self setProgressView:[[UIView alloc] initWithFrame:CGRectWithSize([[self dividerView] frame], 0, 3)]];
-//    [[self progressView] setCenter:[[self dividerView] center]];
-//    [[self progressView] setFrame:CGRectWithX([[self progressView] frame], CGRectGetMinX([[self dividerView] frame]))];
 
     [self setProgressView:[[UIView alloc] initWithFrame:CGRectWithWidth([[self dividerView] frame], 0)]];
     
@@ -518,8 +533,6 @@
     
     [[self view] addSubview:[self progressView]];
     
-//    [[[self progressView] layer] setBorderColor:[UIColor whiteColor].CGColor];
-//    [[[self progressView] layer] setBorderWidth:1];
     [[self progressView] setBackgroundColor:[UIColor whiteColor]];
     [self layoutTrackViews];        
     [super viewDidLoad];

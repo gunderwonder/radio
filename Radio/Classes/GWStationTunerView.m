@@ -57,8 +57,7 @@
         if (![view isKindOfClass:[GWGlowingLabel class]]) {
             index++;
             continue;
-        }
-            
+        }    
         
         GWGlowingLabel *label = (GWGlowingLabel *)view;
         [label setTextColor:GWStationLabelInactiveTextColor];
@@ -111,8 +110,6 @@
         
         labelOffset += stationLabelWidth;
     }
-    
-    
     
 }
 

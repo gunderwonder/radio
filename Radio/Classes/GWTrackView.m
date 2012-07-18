@@ -30,7 +30,6 @@
     }
 }
 
-
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
@@ -50,25 +49,6 @@
     return self;
 }
 
-- (void)animateMetadataToOffset:(CGFloat)offset width:(CGFloat)width {
-    [UIView animateWithDuration:.3 animations:^{
-        CGRect artistLabelFrame = [[self artistLabel] frame];
-        artistLabelFrame = CGRectWithX(artistLabelFrame, offset);
-        artistLabelFrame = CGRectWithWidth(artistLabelFrame, width);
-        [[self artistLabel] setFrame:artistLabelFrame];
-        
-        CGRect trackLabelFrame = [[self trackLabel] frame];
-        trackLabelFrame = CGRectWithX(trackLabelFrame, offset);
-        [[self trackLabel] setFrame:trackLabelFrame];
-        
-        CGRect spotifyButtonFrame = [[self spotifyButton] frame];
-        spotifyButtonFrame = CGRectWithX(spotifyButtonFrame, offset);
-        spotifyButtonFrame = CGRectWithX(spotifyButtonFrame, offset);
-        [[self spotifyButton] setFrame:spotifyButtonFrame];
-        
-    }];
-}
-
 - (void)configureWithTrackData:(NSDictionary *)trackData {
     if (trackData == nil) {
         [self setHidden:YES];
@@ -78,34 +58,18 @@
     NSURL *coverArtURL = [trackData objectForKey:@"coverArtImageURL"];
     
     if (coverArtURL)
-        [[self coverArtView] setImageWithURL:coverArtURL placeholderImage:nil]; 
+        [[self coverArtView] setImageWithURLRequest:[NSURLRequest requestWithURL:coverArtURL] placeholderImage:nil 
+                                            success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                                if ([[self label] tag] == GWTrackViewTagCurrent)
+                                                    [[NSNotificationCenter defaultCenter] 
+                                                     postNotificationName:@"GWCurrentTrackImageDidLoadNotification" object:image];
+                                            }
+                                            failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                                [[self coverArtView] setImage:nil];
+                                            }];
     else
         [[self coverArtView] setImage:nil];
-    
-//    CGFloat metadataOffset = 0.0f;
-//    CGFloat metadataWidth = GWTrackViewMetadataDefaultWidth;
-//    if (coverArtURL) {
-//        [[self coverArtView] setImageWithURLRequest:[NSURLRequest requestWithURL:coverArtURL] 
-//                                   placeholderImage:nil 
-//                                            success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-//                                                [UIView animateWithDuration:.5 animations:^{
-//                                                    [[self coverArtView] setAlpha:1.0];
-//                                                }];
-//                                            }
-//                                            failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-//                                                [self animateMetadataToOffset:0.0f width:metadataWidth]; 
-//                                            }];
-//        metadataOffset = GWTrackViewMetadataLeftOffset;
-//        metadataWidth = GWTrackViewWidth;
-//    } else {
-//        
-//        [UIView animateWithDuration:.5 animations:^{
-//            [[self coverArtView] setAlpha:0.0];
-//        }];
-//        
-//    }
-    
-    
+        
     NSString *artist = [trackData objectForKey:@"artist"];
     artist = (artist == nil) ? @"" : artist;
     [[self artistLabel] setText:artist];
@@ -116,13 +80,10 @@
     
     [self setHidden:NO];
     
-//    [self animateMetadataToOffset:metadataOffset width:metadataWidth];
-    
-    
 }
 
 - (IBAction)didTouchSpotifyButton:(UIButton *)sender {
-    
+    // TODO: handle empty data
     [GWSpotifySearcher searchForTrack:[[[self trackLabel] text] lowercaseString] 
                              byArtist:[[[self artistLabel] text] lowercaseString]];
     
