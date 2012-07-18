@@ -8,8 +8,6 @@
 
 #import "GWVolumeUnitMeterView.h"
 
-#import <QuartzCore/CALayer.h>
-
 #define GWLevelMeterRange                   1.0
 #define GWVUMaximumDegrees                  45.0
 #define GWVUMinimumDegrees                  -45.0
@@ -19,15 +17,16 @@
 @interface GWVolumeUnitMeterView()
 
 @property (nonatomic,retain) UIView *needle;
+@property (nonatomic,assign) CGAffineTransform originalTransform;
 
 - (void)loadSubviews;
-
 
 @end
 
 @implementation GWVolumeUnitMeterView
 
-@synthesize needle=_needle;
+@synthesize needle = _needle;
+@synthesize originalTransform = _originalTransform;
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -46,6 +45,9 @@
 }
 
 - (void)loadSubviews {
+    
+    [self setOriginalTransform:[self transform]];
+    
     UIImage *backgroundImage = [UIImage imageNamed:@"meter"];
     UIImageView *backgroundView = [[UIImageView alloc] initWithImage:backgroundImage];
     
@@ -82,9 +84,28 @@
     CGFloat degrees = GWLevelMeterValueToDegrees(average);
     
     [UIView animateWithDuration:.1 animations:^() {
+        //[[self layer] setAnchorPoint:CGPointMake(0, 1)];
+        
         CGAffineTransform rotationTransform = CGAffineTransformIdentity;
         rotationTransform = CGAffineTransformRotate(rotationTransform, GWDegreesToRadians(degrees));
         [[self needle] setTransform:rotationTransform];
+    }];
+}
+
+- (void)minimize {
+    [UIView animateWithDuration:.3 animations:^() {
+        CGAffineTransform minimizeTransform = CGAffineTransformIdentity;
+        minimizeTransform = CGAffineTransformTranslate(minimizeTransform, 85.0, 33);
+//        [self setTransform:minimizeTransform];
+        minimizeTransform = CGAffineTransformScale(minimizeTransform, .4, .4);
+        [self setTransform:minimizeTransform];
+        
+    }];
+}
+
+- (void)maximize {
+    [UIView animateWithDuration:.3 animations:^() {
+        [self setTransform:[self originalTransform]];
     }];
 }
 

@@ -370,7 +370,11 @@
     
     BOOL trackScrollViewHidden = currentTrack == nil && previousTrack == nil && nextTrack == nil;
     [[self trackScrollView] setHidden:trackScrollViewHidden];
-    [[self meterView] setHidden:!trackScrollViewHidden];
+//    [[self meterView] setHidden:!trackScrollViewHidden];
+    if (!trackScrollViewHidden)
+        [[self meterView] minimize];
+    else
+        [[self meterView] maximize];
         
     [[self lastTrackView] configureWithTrackData:previousTrack];
     [[self currentTrackView] configureWithTrackData:currentTrack];

@@ -7,11 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/CALayer.h>
 
 @interface GWVolumeUnitMeterView : UIView {
     UIView *_needle;
+    
+    CGAffineTransform _originalTransform;
 }
 
 - (void)updateMeterWithLeftValue:(CGFloat)leftValue rightValue:(CGFloat)rightValue;
+- (void)minimize;
+- (void)maximize;
 
 @end
