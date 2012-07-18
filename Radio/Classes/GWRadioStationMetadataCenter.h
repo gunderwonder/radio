@@ -14,7 +14,7 @@
 #define GWMetadataPropertyCurrentShow           @"currentShowName"
 #define GWMetadataPropertyCurrentShowStartTime  @"currentShowStartTime"
 #define GWMetadataPropertyNextShow              @"nextShowName"
-#define GWMetadataPropertyNextShowStartTime  @"nextShowStartTime"
+#define GWMetadataPropertyNextShowStartTime     @"nextShowStartTime"
 
 @interface GWRadioStationMetadataCenter : NSObject {
     NSURL *_metadataURL;

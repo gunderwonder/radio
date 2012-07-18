@@ -36,7 +36,7 @@ static GWRadioStationMetadataCenter *sharedMetadataCenter;
 @synthesize currentMetadata = _currentMetadata;
 @synthesize dateFormatter = _dateFormatter;
 
-#define GWNRKTimeZoneAbbreviation   @"CET"
+#define GWNRKTimeZoneAbbreviation   @"Europe/Oslo"
 #define GWNRKDateFormatString       @"yyyy-MM-dd'T'HH:mm:ss"
 
 + (GWRadioStationMetadataCenter *)sharedCenter {
@@ -51,8 +51,7 @@ static GWRadioStationMetadataCenter *sharedMetadataCenter;
 - (id)init {
     if (self = [super init]) {
         [self setDateFormatter:[[NSDateFormatter alloc] init]];
-        
-        [[self dateFormatter] setTimeZone:[NSTimeZone timeZoneWithAbbreviation:GWNRKTimeZoneAbbreviation]];
+        [[self dateFormatter] setTimeZone:[NSTimeZone timeZoneWithName:GWNRKTimeZoneAbbreviation]];
         [[self dateFormatter] setDateFormat:GWNRKDateFormatString];
     }
     return self;
@@ -109,7 +108,7 @@ static GWRadioStationMetadataCenter *sharedMetadataCenter;
 - (NSDate *)dateFromString:(NSString *)string {
     if (string == nil)
         return nil;
-        
+    GWLog(@"%@", string);
     return [[self dateFormatter] dateFromString:string];
     
     return nil;
@@ -121,13 +120,13 @@ static GWRadioStationMetadataCenter *sharedMetadataCenter;
     GWDebugMetadata(@"Parsing metadata %@", data);
     
     NSDictionary *program = [data objectForKey:@"program"];
-    NSString *showName = [program objectForKey:@"title"];
+    NSString *showName = [[program objectForKey:@"title"] stringByReplacingOccurrencesOfString:@"::" withString:@":"];
     if (showName != nil)
-        [metadata setObject:showName forKey:@"currentShowName"];
+        [metadata setObject:showName forKey:GWMetadataPropertyCurrentShow];
     
-    NSString *showStartDateString = [data objectForKey:@"date"];
+    NSString *showStartDateString = [program objectForKey:@"date"];
     if (showStartDateString != nil)
-        [metadata setObject:[self dateFromString:showStartDateString] forKey:@"currentShowStartTime"];    
+        [metadata setObject:[self dateFromString:showStartDateString] forKey:GWMetadataPropertyCurrentShowStartTime];    
     
     NSArray *elements = [program objectForKey:@"elements"];
     if ([elements count]) {
@@ -149,18 +148,35 @@ static GWRadioStationMetadataCenter *sharedMetadataCenter;
                 if (title)
                     [track setObject:title forKey:@"track"];
                 
+                NSString *dateString = [element objectForKey:@"date"];
+                if (dateString != nil) {
+                    NSDate *startTime = [self dateFromString:dateString];
+                    
+                    if ([[element objectForKey:@"runorder"] isEqualToString:@"present"]) {
+                        NSTimeInterval intervalSinceThen = [[NSDate date] timeIntervalSinceDate:startTime];
+                        if (intervalSinceThen > 0 && intervalSinceThen > 60 * 20) {
+                            //GWDebugRadioMetadata("Ignoring song with title '%@' because it started too long ago", title);
+                            continue;
+                        }
+                    }
+                    
+                    [track setObject:startTime forKey:@"startTime"];
+                }
+                     
+                
                 if ([[element objectForKey:@"runorder"] isEqualToString:@"past"])
                     [metadata setObject:track forKey:@"previousTrack"];
                 else if ([[element objectForKey:@"runorder"] isEqualToString:@"present"])
                     [metadata setObject:track forKey:@"currentTrack"];
                 else if ([[element objectForKey:@"runorder"] isEqualToString:@"future"])
                     [metadata setObject:track forKey:@"nextTrack"];
+                        
                 
             } else if ([[element objectForKey:@"runorder"] isEqualToString:@"nextprogram"]) {
                 NSDictionary *nextProgram = [element objectForKey:@"program"];
                 [metadata setObject:[nextProgram objectForKey:@"title"] forKey:@"nextShowName"];
                 
-                NSString *nextShowStartDateString = [element objectForKey:@"date"];
+                NSString *nextShowStartDateString = [nextProgram objectForKey:@"date"];
                 if (nextShowStartDateString != nil)
                     [metadata setObject:[self dateFromString:nextShowStartDateString] forKey:@"nextShowStartTime"];    
             }

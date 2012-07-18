@@ -30,6 +30,8 @@
 @property (nonatomic, assign) NSUInteger currentStationIndex;
 @property (nonatomic, retain) NSTimer *levelMeterUpdateTimer;
 
+@property (nonatomic, retain) UIView *progressView;
+
 #pragma mark - Private methods
 - (void)didReceiveUpdateMetadataNotification:(NSNotification *)notification;
 - (void)updateMetadata:(NSDictionary *)metadata;
@@ -43,6 +45,9 @@
 @synthesize stations = _stations;
 @synthesize currentStationIndex = _currentStationIndex;
 @synthesize levelMeterUpdateTimer=_levelMeterUpdateTimer;
+@synthesize progressView = _progressView;
+
+
 @synthesize trackScrollView;
 @synthesize pageControl;
 @synthesize currentShowLabel;
@@ -59,6 +64,7 @@
 @synthesize indicatorView;
 @synthesize airplayButton;
 @synthesize customAirplayButton;
+@synthesize dividerView;
 @synthesize meterView;
 
 
@@ -284,6 +290,70 @@
     [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:metadata];
 }
 
+- (void)layoutTimeProgressViewWithMetadata:(NSDictionary *)metadata {
+    NSDate *startTime = [metadata objectForKey:GWMetadataPropertyCurrentShowStartTime];
+    NSDate *endTime = [metadata objectForKey:GWMetadataPropertyNextShowStartTime];
+    
+    if (startTime == nil || endTime == nil) {
+        [UIView animateWithDuration:0.5
+                              delay:0.0
+                            options:UIViewAnimationOptionBeginFromCurrentState
+                         animations:^{
+                             [[self progressView] setFrame:CGRectWithWidth([[self progressView] frame], 0)];
+                         }
+                         completion:^(BOOL finished){ }];
+                             
+        
+        
+        return; // TODO: handle this
+    }
+    
+    
+    
+    NSTimeInterval interval = [[NSDate date] timeIntervalSinceDate:startTime];
+    CGFloat progressViewWidth = interval * CGRectGetWidth([[self dividerView] frame]) / [endTime timeIntervalSinceDate:startTime];
+    GWLog(@"interval %f width %f %@", interval, progressViewWidth, [NSDate date]);
+    
+    [[[self progressView] layer] removeAllAnimations];
+    [UIView animateWithDuration:0.5
+                          delay:0.0
+                        options:UIViewAnimationOptionBeginFromCurrentState
+                     animations:^{
+                         [[self progressView] setFrame:CGRectWithWidth([[self progressView] frame], progressViewWidth)];
+                     }
+                     completion:^(BOOL finished){ 
+                         
+                             [UIView animateWithDuration:[endTime timeIntervalSinceNow] animations:^() {
+                                 [[self progressView] setFrame:CGRectWithWidth([[self progressView] frame], 
+                                                                               CGRectGetWidth([[self dividerView] frame]))];
+                             }];
+                         
+                     }];
+    
+    
+//    [[[self progressView] layer] removeAllAnimations];
+//    [UIView animateWithDuration:0.0
+//                          delay:0.0
+//                        options:UIViewAnimationOptionBeginFromCurrentState
+//                     animations:^{
+//                         [[self progressView] setFrame:CGRectWithWidth([[self progressView] frame], 0)];
+//                     }
+//                     completion:^(BOOL finished){ 
+//                     
+//                         [UIView animateWithDuration:.5 animations:^() {
+//                             [[self progressView] setFrame:CGRectWithWidth([[self progressView] frame], progressViewWidth)];
+//                         } completion: ^(BOOL completed) {
+//                             
+//                             [UIView animateWithDuration:[endTime timeIntervalSinceNow] animations:^() {
+//                                 [[self progressView] setFrame:CGRectWithWidth([[self progressView] frame], 
+//                                                                               CGRectGetWidth([[self dividerView] frame]))];
+//                             }];
+//                         }];
+//                     
+//                     }];
+    
+    
+}
 
 - (void)updateMetadata:(NSDictionary *)metadata {
     [[self currentShowLabel] setText:[metadata objectForKey:@"currentShowName"]];
@@ -306,6 +376,7 @@
     [[self currentTrackView] configureWithTrackData:currentTrack];
     [[self nextTrackView] configureWithTrackData:nextTrack];
     
+    [self layoutTimeProgressViewWithMetadata:metadata];
     [self layoutTrackViews];
     
     [self updateLockscreenMetadataWithTrackData:[NSDictionary dictionaryWithDictionary:currentTrack]];
@@ -428,6 +499,24 @@
         }
     }
     
+//    [self setProgressView:[[UIView alloc] initWithFrame:CGRectWithSize([[self dividerView] frame], 0, 3)]];
+//    [[self progressView] setCenter:[[self dividerView] center]];
+//    [[self progressView] setFrame:CGRectWithX([[self progressView] frame], CGRectGetMinX([[self dividerView] frame]))];
+
+    [self setProgressView:[[UIView alloc] initWithFrame:CGRectWithWidth([[self dividerView] frame], 0)]];
+    
+    
+    [[self progressView] setClipsToBounds:NO];
+    
+    [[[self progressView] layer] setBorderColor:[[self dividerView] backgroundColor].CGColor];
+    [[[self progressView] layer] setBorderColor:[UIColor whiteColor].CGColor];
+    [[[self progressView] layer] setBorderWidth:5];
+    
+    [[self view] addSubview:[self progressView]];
+    
+//    [[[self progressView] layer] setBorderColor:[UIColor whiteColor].CGColor];
+//    [[[self progressView] layer] setBorderWidth:1];
+    [[self progressView] setBackgroundColor:[UIColor whiteColor]];
     [self layoutTrackViews];        
     [super viewDidLoad];
 }
@@ -452,6 +541,7 @@
     [self setIndicatorView:nil];
     [self setAirplayButton:nil];
     [self setCustomAirplayButton:nil];
+    [self setDividerView:nil];
     [super viewDidUnload];
 }
 

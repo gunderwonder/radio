@@ -11,6 +11,7 @@
 @interface GWAudioStreamer : AudioStreamer
 
 - (float)averagePowerForChannel:(NSUInteger)channelNumber;
+- (float)peakPowerForChannel:(NSUInteger)channelNumber;
 - (NSUInteger)numberOfChannels;
 - (BOOL)isMeteringEnabled;
 - (void)setMeteringEnabled:(BOOL)enable;

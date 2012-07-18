@@ -72,7 +72,7 @@
 						</object>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">1</int>
-						<float key="IBUIMinimumFontSize">22</float>
+						<float key="IBUIMinimumFontSize">20</float>
 						<object class="IBUIFontDescription" key="IBUIFontDescription">
 							<string key="name">Futura-Medium</string>
 							<string key="family">Futura</string>
@@ -374,7 +374,6 @@
 						<string key="NSFrame">{{265, 393}, {42, 42}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<int key="IBUIContentMode">4</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -392,7 +391,7 @@
 						<reference key="NSNextKeyView" ref="840627352"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC41MDk4MDM5MjE2IDAuNTQ1MDk4MDM5MiAwLjU4NDMxMzcyNTUAA</bytes>
+							<bytes key="NSRGB">MC40MjkzMTMyNzMgMC40NjEwNTIxNTQ5IDAuNDk0ODk3OTU5MgA</bytes>
 						</object>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
@@ -560,6 +559,14 @@
 						<reference key="destination" ref="432113191"/>
 					</object>
 					<int key="connectionID">114</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">dividerView</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="168639419"/>
+					</object>
+					<int key="connectionID">115</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -810,7 +817,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">114</int>
+			<int key="maxID">115</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -913,6 +920,7 @@
 						<string key="currentShowLabel">GWGlowingLabel</string>
 						<string key="currentTrackView">GWTrackView</string>
 						<string key="customAirplayButton">UIButton</string>
+						<string key="dividerView">UIView</string>
 						<string key="firstTunerView">GWStationTunerView</string>
 						<string key="flipsideButton">UIButton</string>
 						<string key="indicatorView">UIImageView</string>
@@ -943,6 +951,10 @@
 						<object class="IBToOneOutletInfo" key="customAirplayButton">
 							<string key="name">customAirplayButton</string>
 							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="dividerView">
+							<string key="name">dividerView</string>
+							<string key="candidateClassName">UIView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="firstTunerView">
 							<string key="name">firstTunerView</string>

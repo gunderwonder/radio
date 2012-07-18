@@ -33,6 +33,7 @@ typedef enum GWTunerScrollViewDirection {
     GWTunerScrollViewDirection tunerScrollViewDirection;
     
     NSTimer *_levelMeterUpdateTimer;
+    UIView *_progressView;
 }
 
 @property (weak, nonatomic) IBOutlet UIScrollView *trackScrollView;
@@ -52,6 +53,7 @@ typedef enum GWTunerScrollViewDirection {
 @property (weak, nonatomic) IBOutlet UIImageView *indicatorView;
 @property (weak, nonatomic) IBOutlet MPVolumeView *airplayButton;
 @property (weak, nonatomic) IBOutlet UIButton *customAirplayButton;
+@property (weak, nonatomic) IBOutlet UIView *dividerView;
 
 - (IBAction)didSpotifySearch:(id)sender;
 
