@@ -420,12 +420,18 @@
         UIButton *button = (UIButton *)object;
         
         if ([[change valueForKey:NSKeyValueChangeNewKey] intValue] == 1) {
-            [button setImage:[UIImage imageNamed:@"button_airplay"] forState:UIControlStateNormal];
-            [button setBounds:CGRectMake(0, 0, 50, 50)];
+            NSLog(@"****HER****");
             
-            [[self airplayButton] bringSubviewToFront:[self customAirplayButton]];
+            [button setImage:[UIImage imageNamed:@"button_airplay"] forState:UIControlStateNormal];
+            [button setShowsTouchWhenHighlighted:YES];           
+            
+            [button setFrame:CGRectWithPosition([[self customAirplayButton] frame], 0, 0)];
+            
+            [[self view] bringSubviewToFront:[self airplayButton]];
+            [[self customAirplayButton] setHidden:YES];
         } else {
-            [[self customAirplayButton] bringSubviewToFront:[self airplayButton]];
+            [[self view] bringSubviewToFront:[self customAirplayButton]];
+            [[self customAirplayButton] setHidden:NO];
         }
         
     }
@@ -516,7 +522,7 @@
             [button setTag:GWAirplayButtonTag];
             
             [button setImage:[UIImage imageNamed:@"button_airplay"] forState:UIControlStateNormal];
-            [button setBounds:CGRectMake(0, 0, 50, 50)];
+            [button setFrame:CGRectWithPosition([[self customAirplayButton] frame], 0, 0)];
             
             [button addObserver:self forKeyPath:@"alpha" options:NSKeyValueObservingOptionNew context:nil];
         }

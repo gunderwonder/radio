@@ -81,7 +81,7 @@
 - (void)updateMeterWithLeftValue:(CGFloat)leftValue rightValue:(CGFloat)rightValue {
     
     CGFloat average = (leftValue + rightValue) / 2.0;
-    CGFloat degrees = GWLevelMeterValueToDegrees(average);
+    CGFloat degrees = GWLevelMeterValueToDegrees(average) + (average != 0 ? 10.0 : 0);
     
     [UIView animateWithDuration:.1 animations:^() {
         //[[self layer] setAnchorPoint:CGPointMake(0, 1)];
